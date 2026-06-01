@@ -8,9 +8,11 @@ Note: All example datasets referenced in the ESCAPE-NET code are located on the 
 2. Download the conda environment provided in Peripheral Nerve Studies/MCC/Arthur/environment/env on the NET Drive
 3. Open the environment file and update the first and last lines
    - First line: name: *name of your environment*
-     * Example: name: environment
+     * Example:
+       ```name: environment```
    - Last line: prefix: *full path to your environment*
-     * Example: prefix: C:\Users\TuL\AppData\Local\anaconda3\envs\environment 
+     * Example:
+       ```prefix: C:\Users\TuL\AppData\Local\anaconda3\envs\environment ```
 5. Open Anaconda Prompt
 6. Enter the following into Anaconda Prompt to create and activate the environment: 
 ```
