@@ -13,13 +13,14 @@ Note: All example datasets referenced in the ESCAPE-NET code are located on the 
      * Example: prefix: C:\Users\TuL\AppData\Local\anaconda3\envs\environment 
 5. Open Anaconda Prompt
 6. Enter the following into Anaconda Prompt to create and activate the environment: 
-i) conda env create -f "path to your environment"
-		> conda activate *name of your environment*
-
+```
+   conda env create -f "path to your environment"
+   conda activate *name of your environment*
+```
 ## HOW TO RUN:
 
 1. Modify the file paths in File_utils_main, File_utils, Preprocessing_module_BP, and Preprocessing_module_ConPerRing_BP to link to your datasets. 
-2. Enter the following into Anaconda Prompt:
+2. Enter the following into Anaconda Prompt to run the code:
    ```
    conda activate *name of your environment*
    cd *name of directory the code is stored in*
