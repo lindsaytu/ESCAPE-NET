@@ -1,6 +1,6 @@
 # ESCAPE-NET (WINDOWS)
 	
-Note: All example datasets referenced in the ESCAPE-NET code are located on the NET drive. This set of instructions will only work on Windows machines. 
+*Note: All example datasets referenced in the ESCAPE-NET code are located on the NET drive. This set of instructions will only work on Windows machines.*
 
 ## SETTING UP YOUR ENVIRONMENT:
 
