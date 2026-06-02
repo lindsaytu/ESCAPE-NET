@@ -5,7 +5,7 @@
 ## SETTING UP YOUR ENVIRONMENT:
 
 1. Download the newest version of Anaconda for Windows from https://www.anaconda.com/download
-2. Download the conda environment provided ("env")
+2. Download the conda environment provided ("env.yml")
 3. Open the environment file and update the first and last lines
    - First line: name: *name of your environment*
      * Example:
