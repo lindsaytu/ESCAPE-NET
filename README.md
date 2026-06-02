@@ -31,11 +31,11 @@
 
 Your code should be up and running now! 
 
-## COMMON ISSUES:
+## COMMON ISSUES & CHANGES MADE:
 
 1. MATLAB files that are newer than v7 may not work. To fix this, open a terminal in MATLAB and save with the following command:
 ```
 save('filename.mat', variables, '-v7')
 ```
 
-2. The ERat label is specified in the dataset being used. Change this according to the naming convention in your datasets.
+2. The ERat label in runallCNN_Combined_wfiltsize_BP_Efficient_plus.py is specified in the dataset being used. Change this according to the naming convention in your datasets.
