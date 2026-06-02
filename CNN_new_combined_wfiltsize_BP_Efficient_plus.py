@@ -16,11 +16,11 @@ import keras
 from keras import backend as K
 from keras.models import Sequential, Model, load_model
 from keras.layers import Input,Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
-from tensorflow.keras.optimizers import SGD #***
+from tensorflow.keras.optimizers import SGD #from keras.optimizers import SGD
 from keras.utils import np_utils
 from keras.callbacks import EarlyStopping
 
-import tensorflow as tf
+import tensorflow as tf 
 
 def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model):
     
