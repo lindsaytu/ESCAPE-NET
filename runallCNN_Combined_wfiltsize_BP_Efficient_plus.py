@@ -20,7 +20,7 @@ channel_width_multiplier = 1
 # filepath = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Ryan K\\CNNs\\Training_Sets_BP\\'
 print_model = True
 
-''' Rats fold 1-3 '''
+''' Rats fold 1-3 ''' #change based on number of folds
 for i in range(4,11):
     for k in range(1,4):
         ratnum = 'ERat' + str(i) #ratnum = 'Rat' + str(i)
