@@ -7,16 +7,16 @@ Created on Sun Mar 25 15:00:22 2018
 
 import CNN_new_combined_wfiltsize_BP_Efficient_plus as CNN
 
-valid_patience = 15
-epochs = 1000
-batch_size = 50
-numspikes = 1000
+valid_patience = 15 #early stopping hyperparameter
+epochs = 1000 #number of passes of training dataset through model
+batch_size = 50 #number of image samples processed together before internal weights are updated
+numspikes = 1000 
 numfilters_arr = [32]
 dense_neurons_arr = [32]#8,4]
 #filtsize = 8
 filtsizes = [9]
-dropout_rate = 0.5
-channel_width_multiplier = 1
+dropout_rate = 0.5 #fraction of neurons randomly dropped during each training step
+channel_width_multiplier = 1 #scale factor for size of CNN
 # filepath = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Ryan K\\CNNs\\Training_Sets_BP\\'
 print_model = True
 
