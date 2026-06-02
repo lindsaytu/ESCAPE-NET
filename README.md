@@ -13,8 +13,8 @@
    - Last line: prefix: *full path to your environment*
      * Example:
        ```prefix: C:\Users\TuL\AppData\Local\anaconda3\envs\environment ```
-5. Open Anaconda Prompt
-6. Enter the following into Anaconda Prompt to create and activate the environment: 
+4. Open Anaconda Prompt
+5. Enter the following into Anaconda Prompt to create and activate the environment: 
 ```
    conda env create -f "path to your environment"
    conda activate *name of your environment*
