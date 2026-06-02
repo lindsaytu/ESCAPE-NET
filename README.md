@@ -21,7 +21,7 @@
 ```
 ## HOW TO RUN:
 
-1. Modify the file paths in File_utils_main, File_utils, Preprocessing_module_BP, and Preprocessing_module_ConPerRing_BP to link to your datasets. 
+1. Modify the file paths in *File_utils_main*, *File_utils*, *Preprocessing_module_BP*, and *Preprocessing_module_ConPerRing_BP* to link to your datasets. 
 2. Enter the following into Anaconda Prompt to run the code:
    ```
    conda activate *name of your environment*
@@ -38,4 +38,4 @@ Your code should be up and running now!
 save('filename.mat', variables, '-v7')
 ```
 
-2. The ERat label in runallCNN_Combined_wfiltsize_BP_Efficient_plus.py is specified in the dataset being used. Change this according to the naming convention in your datasets.
+2. The ERat label in *runallCNN_Combined_wfiltsize_BP_Efficient_plus.py* is based on the labels used in *File_utils_main.py*, *Preprocessing_module_BP.py*, and *Preprocessing_module_ConPerRing_BP.py*. Change this according to the naming convention you set with your datasets.
