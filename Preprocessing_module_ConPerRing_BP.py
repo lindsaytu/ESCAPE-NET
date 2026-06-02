@@ -17,17 +17,17 @@ class Preprocessing_module:
     '''Constructor'''    
     def __init__(self,Ratnum,foldnum,is_RNN=False):
         
-        #change filename to path of your ConPerRing training set (note: all paths below are in windows format, change to mac or linux if needed)
+        #change filename to path of your ConPerRing training set (note: all paths below are in windows format, change to linux if needed)
         load_filename = 'D:\\Eugene\\Training_Sets_ConPerRing\\' + Ratnum + 'Training_Fold' + str(foldnum)
         
-        self.numcons = 56
+        self.numcons = 56 #number of channels
         # Use mapping to get new dataset collected by Eugene
         if "ERat" in Ratnum:
-            self.numcons = 64
+            self.numcons = 64 #number of channels
             if foldnum > 0:
-                load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW'
+                load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW' #change filename to your path
             else:
-                load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW'
+                load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
         # RAT = scipy.io.loadmat('M:\\Peripheral Nerve Studies\\MCC Projects\\Ryan K\\CNNs\\Training_Sets_BP\\Training_Sets_ConPerRing\\' + Ratnum + 'Training_Fold' + str(foldnum))
         RAT = scipy.io.loadmat(load_filename)
         
