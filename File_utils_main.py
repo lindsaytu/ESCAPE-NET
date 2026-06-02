@@ -53,7 +53,7 @@ class Utils:
     def get_root_dir(self):
         return self.root_dir 
     
-    #replace with the paths of your dataset (note: all paths below are in windows format, change to mac or linux if needed)
+    #replace with the paths of your dataset (note: all paths below are in windows format, change to linux if needed)
     new_dataset_mapping = {'ERat1': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 9 2021\\Variant F\\Kwiksil\\',
                            'ERat2': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\August 27 2021\\',
                            # ERat3 is just ERat2 without kwiksil
