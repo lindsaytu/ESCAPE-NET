@@ -31,7 +31,7 @@
 
 Your code should be up and running now! 
 
-## COMMON ISSUES & CHANGES MADE:
+## COMMON ISSUES & CHANGES:
 
 1. MATLAB files that are newer than v7 may not work. To fix this, open a terminal in MATLAB and save with the following command:
 ```
