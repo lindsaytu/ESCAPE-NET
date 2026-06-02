@@ -5,7 +5,7 @@
 ## SETTING UP YOUR ENVIRONMENT:
 
 1. Download the newest version of Anaconda for Windows from https://www.anaconda.com/download
-2. Download the conda environment provided in Peripheral Nerve Studies/MCC/Arthur/environment/env on the NET Drive
+2. Download the conda environment provided ("env")
 3. Open the environment file and update the first and last lines
    - First line: name: *name of your environment*
      * Example:
@@ -21,8 +21,9 @@
 ```
 ## HOW TO RUN:
 
-1. Modify the file paths in *File_utils_main*, *File_utils*, *Preprocessing_module_BP*, and *Preprocessing_module_ConPerRing_BP* to link to your datasets. 
-2. Enter the following into Anaconda Prompt to run the code:
+1. Download the python files provided
+2. Modify the file paths in *File_utils_main*, *File_utils*, *Preprocessing_module_BP*, and *Preprocessing_module_ConPerRing_BP* to link to your datasets. 
+3. Enter the following into Anaconda Prompt to run the code:
    ```
    conda activate *name of your environment*
    cd *name of directory the code is stored in*
