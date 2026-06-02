@@ -16,7 +16,7 @@ class Preprocessing_module:
     '''Constructor'''    
     def __init__(self,Ratnum,foldnum,is_RNN=False):
 
-        #change filename to the path of your training set (note: all paths below are in windows format, change to mac or linux if needed)
+        #change filename to the path of your training set (note: all paths below are in windows format, change to linux if needed)
         load_filename = r'C:\Users\TuL\Documents\MATLAB\Datasets\Training_Fold' + str(foldnum) + '_RAW.mat' #'D:\\Eugene\\Training_Sets\\' + Ratnum + 'Training_Fold' + str(foldnum)
         
         self.numcons = 56
