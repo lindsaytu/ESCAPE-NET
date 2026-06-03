@@ -19,6 +19,17 @@
    conda env create -f "path to your environment"
    conda activate *name of your environment*
 ```
+## PARAMETERS
+
+These are the final parameters that were used in Eugene's paper for ESCAPE-NET Mini with four convolutional layers. These are defined in runallCNN_Combined_wfiltsize_BP_Efficient_plus.py:
+```
+numfilters = 4 #convolutional layer width
+dense_neurons_arr = [8] #dense layer width
+filtsizes = [8] #filter size of first layer. note: other layers are 4x4, 2x2, 1x1 but are hardcoded into CNN_new_combined_wfiltsize_BP_Efficient_plus.py
+dropout_rate = 0
+epochs = 25
+```
+
 ## HOW TO RUN:
 
 1. Download the python files provided
@@ -30,16 +41,6 @@
    python runallCNN_Combined_wfiltsize_BP_Efficient_plus
    ```
 
-## PARAMETERS
-
-These are the final parameters that were used in Eugene's paper for ESCAPE-NET Mini with four convolutional layers. These are defined in runallCNN_Combined_wfiltsize_BP_Efficient_plus.py:
-```
-numfilters = 4 #convolutional layer width
-dense_neurons_arr = [8] #dense layer width
-filtsizes = [8] #filter size of first layer. note: other layers are 4x4, 2x2, 1x1 but are hardcoded into CNN_new_combined_wfiltsize_BP_Efficient_plus.py
-dropout_rate = 0
-epochs = 25
-```
 
 ## COMMON ISSUES & CHANGES:
 
