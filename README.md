@@ -30,8 +30,6 @@
    python runallCNN_Combined_wfiltsize_BP_Efficient_plus
    ```
 
-Your code should be up and running now! 
-
 ## PARAMETERS
 
 These are the final parameters that were used in Eugene's paper for ESCAPE-NET Mini with four convolutional layers. These are defined in runallCNN_Combined_wfiltsize_BP_Efficient_plus.py:
