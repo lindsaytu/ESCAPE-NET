@@ -6,18 +6,11 @@
 
 1. Download the newest version of Anaconda for Windows from https://www.anaconda.com/download
 2. Download the conda environment provided ("env.yml")
-3. Open the environment file and update the first and last lines
-   - First line: name: *name of your environment*
-     * Example:
-       ```name: environment```
-   - Last line: prefix: *full path to your environment*
-     * Example:
-       ```prefix: C:\Users\TuL\AppData\Local\anaconda3\envs\environment ```
-4. Open Anaconda Prompt
-5. Enter the following into Anaconda Prompt to create and activate the environment: 
+3. Open Anaconda Prompt
+4. Enter the following into Anaconda Prompt to create and activate the environment: 
 ```
-   conda env create -f "path to your environment"
-   conda activate *name of your environment*
+   conda env create -f "env.yml"
+   conda activate escape-net
 ```
 ## PARAMETERS
 
@@ -32,12 +25,12 @@ epochs = 25
 
 ## HOW TO RUN:
 
-1. Download the python files provided
-2. Modify the file paths in *File_utils_main*, *File_utils*, *Preprocessing_module_BP*, and *Preprocessing_module_ConPerRing_BP* to link to your datasets. 
+1. Clone repo via `git clone https://github.com/lindsaytu/ESCAPE-NET.git`
+2. Modify the file paths in *File_utils_main*, *File_utils*, *Preprocessing_module_BP*, and *Preprocessing_module_ConPerRing_BP* to point to your datasets. 
 3. Enter the following into Anaconda Prompt to run the code:
    ```
-   conda activate *name of your environment*
-   cd *name of directory the code is stored in*
+   conda activate escape-net
+   cd ESCAPE-NET
    python runallCNN_Combined_wfiltsize_BP_Efficient_plus
    ```
 
