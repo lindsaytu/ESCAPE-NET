@@ -1,0 +1,26 @@
+[project]
+name = "escape-net"
+version = "0.1.0"
+description = "ESCAPE-NET: CNN for peripheral nerve spike classification."
+requires-python = ">=3.9"
+# Runtime libraries (tensorflow, numpy, scipy, matplotlib) are provided by the
+# conda environment (env.yml), so they are intentionally NOT listed here to
+# avoid pip fighting the conda-managed installs.
+dependencies = []
+
+[project.scripts]
+runallCNN = "runallCNN_Combined_wfiltsize_BP_Efficient_plus:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = [
+    "CNN_new_combined_wfiltsize_BP_Efficient_plus",
+    "File_utils",
+    "File_utils_main",
+    "Preprocessing_module_BP",
+    "Preprocessing_module_ConPerRing_BP",
+    "runallCNN_Combined_wfiltsize_BP_Efficient_plus",
+]

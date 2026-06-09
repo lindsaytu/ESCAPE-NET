@@ -12,6 +12,10 @@
    conda env create -f "env.yml"
    conda activate escape-net
 ```
+5. Install this project so the `runallCNN` command is available in the environment:
+```
+   pip install -e .
+```
 ## PARAMETERS
 
 These are the final parameters that were used in Eugene's paper for ESCAPE-NET Mini with four convolutional layers. These are defined in runallCNN_Combined_wfiltsize_BP_Efficient_plus.py:
@@ -30,8 +34,7 @@ epochs = 25
 3. Enter the following into Anaconda Prompt to run the code:
    ```
    conda activate escape-net
-   cd ESCAPE-NET
-   python runallCNN_Combined_wfiltsize_BP_Efficient_plus
+   runallCNN
    ```
 
 
