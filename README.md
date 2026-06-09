@@ -35,7 +35,7 @@ epochs = 25
    ```
 
 
-## COMMON ISSUES & CHANGES:
+## TROUBLESHOOTING:
 
 1. MATLAB files that are newer than v7 may not work. To fix this, open a terminal in MATLAB and save with the following command:
 ```
