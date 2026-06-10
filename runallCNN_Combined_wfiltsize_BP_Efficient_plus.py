@@ -30,4 +30,4 @@ for i in range(4,11):
                 for filtsize in filtsizes:
                     CNN.runCNN_full(ratnum,k,epochs,batch_size,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model)
 
-               
+           

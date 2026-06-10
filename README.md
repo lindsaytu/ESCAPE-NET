@@ -57,3 +57,5 @@ save('filename.mat', variables, '-v7')
 ```
 
 2. The ERat label in *runallCNN_Combined_wfiltsize_BP_Efficient_plus.py* (line 26) is based on the labels used in *File_utils_main.py* (lines 57-81), *Preprocessing_module_BP.py* (line 24), and *Preprocessing_module_ConPerRing_BP.py* (line 25). Change this according to the naming convention you set with your datasets.
+
+
