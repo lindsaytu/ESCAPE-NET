@@ -33,7 +33,7 @@ Enter the following into Anaconda Prompt to run the code:
    ```
    conda activate escape-net
    cd ESCAPE-NET
-   python runallCNN_Combined_wfiltsize_BP_Efficient_plus
+   python runallCNN_Combined_wfiltsize_BP_Efficient_plus.py
    ```
 
 ## PARAMETERS
