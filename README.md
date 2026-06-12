@@ -1,6 +1,6 @@
 # ESCAPE-NET (WINDOWS)
 	
-*Note: All example datasets referenced in the ESCAPE-NET code are located on the NET drive. This set of instructions will only work on Windows machines.*
+Extraneural Spatiotemporal CAPs Extraction Network (ESCAPE-NET) is a method of using a convolutional neural network (CNN) to classify naturally-evoked compound action potentials (nCAPs). This is a guide for running ESCAPE-NET on a Windows machine with your datasets. *Note: All example datasets referenced in the ESCAPE-NET code are located on the NET drive. This set of instructions will only work on Windows machines.*
 
 
 ## HOW TO RUN:
