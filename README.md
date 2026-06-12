@@ -13,10 +13,10 @@ winget install --id Git.Git -e --source winget
 ```
 2. Clone repo via `git clone https://github.com/lindsaytu/ESCAPE-NET.git`
 3. Modify the file paths in 
-- *File_utils_main* (lines 57-83)
-- *File_utils* (lines 9, 15)
-- *Preprocessing_module_BP* (lines 20, 27, 29)
-- *Preprocessing_module_ConPerRing_BP* (lines 21, 28, 30)
+- [File_utils_main](File_utils_main) (lines 57-83)
+- [File_utils](File_utils) (lines 9, 15)
+- [Preprocessing_module_BP](Preprocessing_module_BP) (lines 20, 27, 29)
+- [Preprocessing_module_ConPerRing_BP](Preprocessing_module_ConPerRing_BP) (lines 21, 28, 30)
   
   to the path of your datasets.
 
@@ -62,6 +62,6 @@ The following are some troubleshooting steps for errors that may occur when runn
 save('filename.mat', variables, '-v7')
 ```
 
-2. The ERat label in *runallCNN_Combined_wfiltsize_BP_Efficient_plus.py* (line 26) is based on the labels used in *File_utils_main.py* (lines 57-81), *Preprocessing_module_BP.py* (line 24), and *Preprocessing_module_ConPerRing_BP.py* (line 25). Change this according to the naming convention you set with your datasets.
+2. The ERat label in [runallCNN_Combined_wfiltsize_BP_Efficient_plus.py](runallCNN_Combined_wfiltsize_BP_Efficient_plus.py) (line 26) is based on the labels used in [File_utils_main.py](File_utils_main.py) (lines 57-81), [Preprocessing_module_BP.py](Preprocessing_module_BP.py) (line 24), and [Preprocessing_module_ConPerRing_BP.py](Preprocessing_module_ConPerRing_BP.py) (line 25). Change this according to the naming convention you set with your datasets.
 
 
