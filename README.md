@@ -7,8 +7,12 @@
 
 ### DOWNLOAD FILES:
 
-1. Clone repo via `git clone https://github.com/lindsaytu/ESCAPE-NET.git`
-2. Modify the file paths in 
+1. Open a PowerShell terminal and install git if it is not already installed via the following command:
+```
+winget install --id Git.Git -e --source winget
+```
+2. Clone repo via `git clone https://github.com/lindsaytu/ESCAPE-NET.git`
+3. Modify the file paths in 
 - *File_utils_main* (lines 57-83)
 - *File_utils* (lines 9, 15)
 - *Preprocessing_module_BP* (lines 20, 27, 29)
@@ -19,20 +23,22 @@
 ### SETTING UP YOUR ENVIRONMENT:
 
 1. Download the newest version of Anaconda for Windows from https://www.anaconda.com/download
-2. Download the conda environment provided ("env.yml")
+2. Have the conda environment file ("env.yml") ready. This file is included when you clone the repo.
 3. Open Anaconda Prompt
 4. Enter the following into Anaconda Prompt to create and activate the environment: 
 ```
-   conda env create -f "env.yml"
-   conda activate escape-net
+cd "C:\Users\<username>\Desktop\ESCAPE-NET" #change path to where you cloned the repo
+conda env create -f "env.yml"
+conda activate escape-net
 ```
+Note: it may take a few minutes to create the conda environment. The following is an example of the successful output:
+
+<img width="553" height="177" alt="Screenshot 2026-06-12 at 11 18 23 AM" src="https://github.com/user-attachments/assets/d478c2bc-a94d-4822-bbf3-ba0b6d503dda" />
 
 ### RUN THE CODE:
 
-Enter the following into Anaconda Prompt to run the code:
+After setting up the environment, enter the following into Anaconda Prompt to run the code:
    ```
-   conda activate escape-net
-   cd ESCAPE-NET
    python runallCNN_Combined_wfiltsize_BP_Efficient_plus.py
    ```
 
