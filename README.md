@@ -62,6 +62,6 @@ The following are some troubleshooting steps for errors that may occur when runn
 save('filename.mat', variables, '-v7')
 ```
 
-2. The ERat label in [runallCNN_Combined_wfiltsize_BP_Efficient_plus.py](runallCNN_Combined_wfiltsize_BP_Efficient_plus.py) (line 26) is based on the labels used in [File_utils_main.py](File_utils_main.py) (lines 57-81), [Preprocessing_module_BP.py](Preprocessing_module_BP.py) (line 24), and [Preprocessing_module_ConPerRing_BP.py](Preprocessing_module_ConPerRing_BP.py) (line 25). Change this according to the naming convention you set with your datasets.
+2. The ERat label in [runallCNN_Combined_wfiltsize_BP_Efficient_plus.py](runallCNN_Combined_wfiltsize_BP_Efficient_plus.py) (line 26) is based on the labels used in [File_utils_main.py](File_utils_main.py) (lines 57-81), [Preprocessing_module_BP.py](Preprocessing_module_BP.py) (line 24), and [Preprocessing_module_ConPerRing_BP.py](Preprocessing_module_ConPerRing_BP.py) (line 25). If you run into an error, it might be because you changed one label without changing the others. Double check all the files to make sure the naming convention is consistent.
 
 
