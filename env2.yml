@@ -1,0 +1,22 @@
+
+name: escape-net
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.9.10=h9a09f29_2_cpython
+  - python-dateutil=2.8.2=pyhd8ed1ab_0
+  - python_abi=3.9=2_cp39
+  - _tflow_select=2.1.0=gpu
+  - tensorflow=2.6.0=gpu_py39he88c5ba_0
+  - numpy=1.22.3=py39h6331f09_0
+  - scipy=1.8.0=py39hc0c34ad_1
+  - matplotlib=3.5.1=py39hcbf5309_0
+  - matplotlib-base=3.5.1=py39h581301d_0
+  - pandas=1.4.1=py39h2e25243_0
+  - scikit-image=0.19.2=py39h2e25243_0
+  - scikit-learn=1.0.2=py39he931e04_0
+  - pillow=9.0.1=py39ha53f419_2
+
