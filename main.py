@@ -42,6 +42,25 @@ new_dataset_mapping = {'ERat1': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eug
                         # - As of Jan 9, corrected using new version of code
     }
 
+def __init__(self,Ratnum,foldnum,is_RNN=False):
+
+    #preprocessing module
+
+    load_filename = r'C:\Users\TuL\Documents\MATLAB\Datasets\Training_Fold' + str(foldnum) + '_RAW.mat' #'D:\\Eugene\\Training_Sets\\' + Ratnum + 'Training_Fold' + str(foldnum)
+
+    #con per ring
+
+    load_filename = 'D:\\Eugene\\Training_Sets_ConPerRing\\' + Ratnum + 'Training_Fold' + str(foldnum)
+            
+    self.numcons = 56 #number of channels
+        # Use mapping to get new dataset collected by Eugene
+    if "ERat" in Ratnum:
+        self.numcons = 64 #number of channels
+    if foldnum > 0:
+        load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW' #change filename to your path
+    else:
+        load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
+
 #runall
 
 import CNN_new_combined_wfiltsize_BP_Efficient_plus as CNN
