@@ -10,13 +10,14 @@ import scipy.io
 import random
 from File_utils import File_utils
 import matplotlib.pyplot as plt
+from main import preprocessing_filename
 
 class Preprocessing_module:
     
     '''Constructor'''    
     def __init__(self,Ratnum,foldnum,is_RNN=False):
 
-        from main import preprocessing_filename
+        load_filename = preprocessing_filename(self,Ratnum,foldnum,is_RNN=False)
         
         RAT = scipy.io.loadmat(load_filename)
         

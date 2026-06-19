@@ -15,6 +15,7 @@ from tensorflow.keras import backend as K
 from os import path
 from enum import Enum
 from tensorflow.keras.layers import Layer
+from main import data_files
 
 # from tensorflow.python.saved_model import loader_impl
 # from tensorflow.python.keras.saving.saved_model import load as saved_model_load
@@ -53,7 +54,7 @@ class Utils:
     def get_root_dir(self):
         return self.root_dir 
     
-    from main import data_files
+    data_files()
         
     class LossFunction(Enum):
          CATEGORICAL_CROSSENTROPY = 1

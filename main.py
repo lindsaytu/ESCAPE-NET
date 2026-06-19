@@ -58,6 +58,7 @@ def preprocessing_filename(self,Ratnum,foldnum,is_RNN=False):
             load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Training_Fold' + str(foldnum) + '_RAW'
         else:
             load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Dataset_RAW'
+    return load_filename
 
 #con per ring
 
@@ -74,6 +75,7 @@ def preprocessing_con_per_ring_filename(self, Ratnum, foldnum, is_RNN=False):
                 load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW' #change filename to your path
             else:
                 load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
+        return load_filename
 
 #runall
 
