@@ -53,35 +53,7 @@ class Utils:
     def get_root_dir(self):
         return self.root_dir 
     
-    #replace with the paths of your dataset (note: all paths below are in windows format, change to linux if needed)
-    new_dataset_mapping = {'ERat1': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 9 2021\\Variant F\\Kwiksil\\',
-                           'ERat2': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\August 27 2021\\',
-                           # ERat3 is just ERat2 without kwiksil
-                           'ERat3': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\August 27 2021\\no_kwiksil\\',
-                           'ERat4': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 9 2021\\Variant F\\',
-                           'ERat5': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 23 2021\\Variant F\\',
-                           # ERat6 is ERat5 without artifact
-                           'ERat6': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 23 2021\\Variant F\\no_artifact\\',
-                                    # M:\Peripheral Nerve Studies\MCC Projects\Eugene\Experiments\Raw data\September 23 2021\Variant F\no_artifact\
-                           # ERat7 is ERat 4 without artifact
-                           'ERat7': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 9 2021\\Variant F\\no_artifact\\',
-                           'ERat8': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\August 27 2021\\no_kwiksil\\no_artifact\\',
-                           'ERat9': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\October 7 2021\\Variant F\\no_artifact\\',
-                           
-                           'ERat10': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 9 2021\\Variant F\\no_artifact\\',
-                                    # M:\Peripheral Nerve Studies\MCC Projects\Eugene\Experiments\Raw data\October 7 2021\Variant F\no_artifact\
-                        'ERat11': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 9 2021\\Variant F\\long_hold\\no_artifact\\',
-                        'ERat12': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 9 2021\\Variant F\\longer_hold\\no_artifact\\',
-                        'ERat13': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\no_artifact\\',
-                        'ERat14': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\session2\\no_artifact\\',
-                        # ERat14: Changed number of trials to ~50/150/150 tibial/peroneal/sural
-                        'ERat15': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\ratios_0.3_1_1\\no_artifact\\',
-                        'ERat16': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\ratios_0.2_1_0.6\\no_artifact\\',
-                        'ERat17': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\ratios_0.2_1_0.7\\no_artifact\\',
-                        # ERat18: First iteration code of oversampling - included test samples in training set so not reliable
-                        # - As of Jan 9, corrected using new version of code
-    }
-    
+    from main import data_files
         
     class LossFunction(Enum):
          CATEGORICAL_CROSSENTROPY = 1
@@ -101,16 +73,6 @@ class Utils:
     class OptModelType(Enum):
         TF_LITE = 1
          
-        
-    # class RootDir(Enum):
-    #     OLD_IMAGE_ALIGNMENT = 1
-    #     CORRECTED_IMAGE_ALIGNMENT = 2
-        
-    
-    # root_dir_mapping = {RootDir.OLD_IMAGE_ALIGNMENT: '\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts\\Old Image Alignment\\',
-    #                     RootDir.CORRECTED_IMAGE_ALIGNMENT: '\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts\\Corrected Image Alignment\\'}
-    
-    
    
     ''' Metric functions'''
     @staticmethod
