@@ -16,18 +16,8 @@ class Preprocessing_module:
     '''Constructor'''    
     def __init__(self,Ratnum,foldnum,is_RNN=False):
 
-        #change filename to the path of your training set (note: all paths below are in windows format, change to linux if needed)
-        load_filename = r'C:\Users\TuL\Documents\MATLAB\Datasets\Training_Fold' + str(foldnum) + '_RAW.mat' #'D:\\Eugene\\Training_Sets\\' + Ratnum + 'Training_Fold' + str(foldnum)
+        from main import preprocessing_filename
         
-        self.numcons = 56
-        # Use mapping to get new dataset collected by Eugene
-        if "ERat" in Ratnum:
-            self.numcons = 64 #number of channels
-            if foldnum > 0:
-                load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Training_Fold' + str(foldnum) + '_RAW'
-            else:
-                load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Dataset_RAW'
-        # RAT = scipy.io.loadmat('M:\\Peripheral Nerve Studies\\MCC Projects\\Ryan K\\CNNs\\Training_Sets_BP\\Training_Sets\\' + Ratnum + 'Training_Fold' + str(foldnum)) 
         RAT = scipy.io.loadmat(load_filename)
         
         training_data = RAT['training_data_rat'];

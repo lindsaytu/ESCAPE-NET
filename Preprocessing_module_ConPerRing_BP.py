@@ -28,7 +28,7 @@ class Preprocessing_module:
                 load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW' #change filename to your path
             else:
                 load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
-        # RAT = scipy.io.loadmat('M:\\Peripheral Nerve Studies\\MCC Projects\\Ryan K\\CNNs\\Training_Sets_BP\\Training_Sets_ConPerRing\\' + Ratnum + 'Training_Fold' + str(foldnum))
+        
         RAT = scipy.io.loadmat(load_filename)
         
         training_data = RAT['training_data_rat'];
