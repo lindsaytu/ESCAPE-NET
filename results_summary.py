@@ -31,26 +31,26 @@ columns.append("F1 score macro mean")
 
 now = datetime.now
 date_str = now.strftime("%Y-%m-%d")
-
-for host in range(83, 92):
-    rat_folder = 'ERat'+ str(host) + '_' + date_str
-    #for ratnum in range (83, 92):
-    for fold in range(1,4):
-        #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
-        full_filename = main_dir + rat_folder + 'ERat' + str(host) + '_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_only_conv.mat'
-        RAT = scipy.io.loadmat(full_filename)
-        test_labels = RAT['test_labels']
-        class_probs = RAT['class_probs']
-        model_eval = utils.evaluate_model(test_labels, class_probs)
-        row = [host,
-               #ratnum,
-               fold,
-               model_eval.accuracy, 
-               model_eval.f1score, 
-               model_eval.f1score_maxprobs, 
-               model_eval.f1score_macro_mean]
-        table.append(row)
+def save_results():
+    for host in range(83, 92):
+        rat_folder = 'ERat'+ str(host) + '_' + date_str
+        #for ratnum in range (83, 92):
+        for fold in range(1,4):
+            #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
+            full_filename = main_dir + rat_folder + 'ERat' + str(host) + '_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_only_conv.mat'
+            RAT = scipy.io.loadmat(full_filename)
+            test_labels = RAT['test_labels']
+            class_probs = RAT['class_probs']
+            model_eval = utils.evaluate_model(test_labels, class_probs)
+            row = [host,
+                #ratnum,
+                fold,
+                model_eval.accuracy, 
+                model_eval.f1score, 
+                model_eval.f1score_maxprobs, 
+                model_eval.f1score_macro_mean]
+            table.append(row)
             
-df = pd.DataFrame(table, columns=columns)
-df.to_excel('M:\\NET2\\Zariffa\\Arthur\\Eugene\\NN Scripts\\Old Image Alignment\\results\\transfer_learning_results_hosts.xlsx')
+    df = pd.DataFrame(table, columns=columns)
+    df.to_excel('M:\\NET2\\Zariffa\\Arthur\\Eugene\\NN Scripts\\Old Image Alignment\\results\\transfer_learning_results_hosts.xlsx')
     

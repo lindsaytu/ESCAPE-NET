@@ -10,7 +10,7 @@ import Preprocessing_module_BP as PP
 import Preprocessing_module_ConPerRing_BP as PP2
 import numpy as np
 import scipy
-from File_utils import File_utils
+from main import File_utils
 
 import keras
 from keras import backend as K
