@@ -42,40 +42,18 @@ def data_files():
                         # ERat18: First iteration code of oversampling - included test samples in training set so not reliable
                         # - As of Jan 9, corrected using new version of code
     }
+    return new_dataset_mapping
 
 #preprocessing module
 
-def preprocessing_filename(self,Ratnum,foldnum,is_RNN=False):
+num_channels = 64 #number of channels
 
-    #change filename to the path of your training set (note: all paths below are in windows format, change to linux if needed)
-    load_filename = r'C:\Users\TuL\Documents\MATLAB\Datasets\Training_Fold' + str(foldnum) + '_RAW.mat' #'D:\\Eugene\\Training_Sets\\' + Ratnum + 'Training_Fold' + str(foldnum)
-        
-    self.numcons = 56
-    # Use mapping to get new dataset collected by Eugene
-    if "ERat" in Ratnum:
-        self.numcons = 64 #number of channels
-        if foldnum > 0:
-            load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Training_Fold' + str(foldnum) + '_RAW'
-        else:
-            load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Dataset_RAW'
-    return load_filename
+#change filename to the path of your training set (note: all paths below are in windows format, change to linux if needed)
+data_path = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lucie\\31 oct 2022\\right_side\\no_artifact\\new_filter\\Training_Sets'  #'D:\\Eugene\\Training_Sets\\' + Ratnum + 'Training_Fold' + str(foldnum)
 
 #con per ring
 
-def preprocessing_con_per_ring_filename(self, Ratnum, foldnum, is_RNN=False):
-
-    #change filename to path of your ConPerRing training set (note: all paths below are in windows format, change to linux if needed)
-        load_filename = 'D:\\Eugene\\Training_Sets_ConPerRing\\' + Ratnum + 'Training_Fold' + str(foldnum)
-        
-        self.numcons = 56 #number of channels
-        # Use mapping to get new dataset collected by Eugene
-        if "ERat" in Ratnum:
-            self.numcons = 64 #number of channels
-            if foldnum > 0:
-                load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW' #change filename to your path
-            else:
-                load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
-        return load_filename
+data_path_con_per_ring = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lucie\\31 oct 2022\\right_side\\no_artifact\\new_filter\\Training_Sets_ConPerRing' #path to ConPerRing training set
 
 #runall
 

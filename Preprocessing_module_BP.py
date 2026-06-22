@@ -10,14 +10,20 @@ import scipy.io
 import random
 from File_utils import File_utils
 import matplotlib.pyplot as plt
-from main import preprocessing_filename
+from main import data_path,num_channels
 
 class Preprocessing_module:
     
     '''Constructor'''    
     def __init__(self,Ratnum,foldnum,is_RNN=False):
 
-        load_filename = preprocessing_filename(self,Ratnum,foldnum,is_RNN=False)
+        load_filename = data_path + str(foldnum) + '_RAW.mat'
+        self.numcons = num_channels
+        # Use mapping to get new dataset collected by Eugene
+        if foldnum > 0:
+            load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Training_Fold' + str(foldnum) + '_RAW'
+        else:
+            load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Dataset_RAW'
         
         RAT = scipy.io.loadmat(load_filename)
         
