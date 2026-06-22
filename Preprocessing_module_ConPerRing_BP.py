@@ -19,14 +19,14 @@ class Preprocessing_module:
     def __init__(self,Ratnum,foldnum,is_RNN=False):
 
         #change filename to path of your ConPerRing training set (note: all paths below are in windows format, change to linux if needed)
-        load_filename = data_path_con_per_ring + Ratnum + 'Training_Fold' + str(foldnum)
+        load_filename = data_path_con_per_ring + str(Ratnum) + 'Training_Fold' + str(foldnum)
                 
         self.numcons = num_channels #number of channels
         # Use mapping to get new dataset collected by Eugene
-        if foldnum > 0:
-            load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW' #change filename to your path
-        else:
-            load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
+        # if foldnum > 0:
+            # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW' #change filename to your path
+        # else:
+            # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
         
         RAT = scipy.io.loadmat(load_filename)
         

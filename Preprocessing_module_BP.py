@@ -20,10 +20,10 @@ class Preprocessing_module:
         load_filename = data_path + str(foldnum) + '_RAW.mat'
         self.numcons = num_channels
         # Use mapping to get new dataset collected by Eugene
-        if foldnum > 0:
-            load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Training_Fold' + str(foldnum) + '_RAW'
-        else:
-            load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Dataset_RAW'
+        # if foldnum > 0:
+            # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Training_Fold' + str(foldnum) + '_RAW'
+        # else:
+            # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Dataset_RAW'
         
         RAT = scipy.io.loadmat(load_filename)
         
