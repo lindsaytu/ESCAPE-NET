@@ -525,7 +525,7 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
     
     File_utils.save_files(folder,filename_prefix,class_probs,RAT_data.test_labels,history)
       
-    #test 
+    
     del Combined_model
     
     K.clear_session()
