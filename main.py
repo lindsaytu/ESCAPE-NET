@@ -1,12 +1,29 @@
 
+import sys
+
+import File_utils_main
+
+import CNN_new_combined_wfiltsize_BP_Efficient_plus as CNN
+
+import pandas as pd
+import os.path
+import pathlib
+from os import path
+import numpy as np
+import matplotlib.pyplot as plt
+import utils as utils
+from openpyxl.workbook import Workbook
+from collections import OrderedDict
+import scipy.io
+from datetime import datetime #add date
+
 #save location
 
 #file_utils
 
-import sys
+
 sys.path.append('\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts') #save location (note: all paths below are in windows format, change to linux if needed)
 
-import File_utils_main
 
 File_utils = File_utils_main.Utils('\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts\\Old Image Alignment\\') #save location
 
@@ -57,7 +74,7 @@ data_path_con_per_ring = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lucie\\31 
 
 #runall
 
-import CNN_new_combined_wfiltsize_BP_Efficient_plus as CNN
+
 
 valid_patience = 15 #early stopping hyperparameter
 epochs = 1000 #number of passes of training dataset through model
@@ -71,12 +88,72 @@ channel_width_multiplier = 1 #scale factor for size of CNN
 # filepath = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Ryan K\\CNNs\\Training_Sets_BP\\'
 print_model = True
 
+
+#results summary
+
+main_dir = 'M:\\NET2\\Zariffa\\Arthur\\Eugene\\NN Scripts\\Old Image Alignment\\'
+sys.path.append(main_dir)
+table = []
+columns = []
+columns.insert(0, "Host")
+#columns.insert(1, "Ratnum")
+columns.insert(1, "Fold")
+columns.append("Accuracy")
+columns.append("F1 score")
+columns.append("F1 score max prob")
+columns.append("F1 score macro mean")
+
+now = datetime.now
+date_str = now.strftime("%Y-%m-%d")
+def save_results():
+    for host in range(83, 92):
+        rat_folder = f'ERat{host}_{date_str}\\'
+        #for ratnum in range (83, 92):
+        for fold in range(1,4):
+            #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
+            full_filename = main_dir + rat_folder + 'ERat' + str(host) + '_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_only_conv.mat'
+            
+            # check that file exists:
+            if not os.path.exists(full_filename):
+                print(f"File not found: {full_filename}")
+                continue
+            
+            RAT = scipy.io.loadmat(full_filename)
+            test_labels = RAT['test_labels']
+            class_probs = RAT['class_probs']
+            model_eval = utils.evaluate_model(test_labels, class_probs)
+            row = [host,
+                #ratnum,
+                fold,
+                model_eval.accuracy, 
+                model_eval.f1score, 
+                model_eval.f1score_maxprobs, 
+                model_eval.f1score_macro_mean]
+            table.append(row)
+            
+df = pd.DataFrame(table, columns=columns)
+df.to_excel('M:\\NET2\\Zariffa\\Arthur\\Eugene\\NN Scripts\\Old Image Alignment\\results\\transfer_learning_results_hosts.xlsx')
+
 ''' Rats fold 1-3 ''' #change based on number of folds
 for i in range(4,11):
-    for k in range(1,4):
-        ratnum = 'ERat' + str(i)
+    for foldnum in range(1,4):
+        Ratnum = 'ERat' + str(i)
         
         for dense_neurons in dense_neurons_arr:
             for numfilters in numfilters_arr:
                 for filtsize in filtsizes:
-                    CNN.runCNN_full(ratnum,k,epochs,batch_size,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model)
+                    CNN.runCNN_full(Ratnum,foldnum,epochs,batch_size,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model)
+
+#results per rat
+
+
+rat_folder_main = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
+filename_prefix_main = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+
+rat_folder_ConPerRing_main = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
+filename_prefix_ConPerRing_main = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_ConPerRing_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+
+rat_folder_combined_main = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
+filename_prefix_combined_main = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+
+save_results()

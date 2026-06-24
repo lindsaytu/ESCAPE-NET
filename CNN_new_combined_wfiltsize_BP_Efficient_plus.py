@@ -10,7 +10,9 @@ import Preprocessing_module_BP as PP
 import Preprocessing_module_ConPerRing_BP as PP2
 import numpy as np
 import scipy
-from main import File_utils
+from main import (
+    File_utils, rat_folder_main, filename_prefix_main, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main, rat_folder_combined_main, filename_prefix_combined_main
+)
 
 import keras
 from keras import backend as K
@@ -192,8 +194,8 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     np.disp(score)
     class_probs = Full_model.predict(RAT_data.test_set)
     
-    folder = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
-    filename_prefix = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+    folder = rat_folder_main
+    filename_prefix = filename_prefix_main
     
     File_utils.save_files(folder,filename_prefix,class_probs,RAT_data.test_labels,history)
     
@@ -347,11 +349,12 @@ def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,n
     np.disp(score)
     class_probs = Full_model.predict(RAT_data.test_set)
     
-    folder = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
-    filename_prefix = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_ConPerRing_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+    folder = rat_folder_ConPerRing_main
+    filename_prefix = filename_prefix_ConPerRing_main
     
     File_utils.save_files(folder,filename_prefix,class_probs,RAT_data.test_labels,history)
-      
+    
+
     del Full_model
     
     return [Intermediate_model,RAT_data]
@@ -517,8 +520,8 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
     np.disp(score)
     class_probs = Combined_model.predict([RAT_data.test_set, RAT_data2.test_set])
     
-    folder = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
-    filename_prefix = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+    folder = rat_folder_combined_main
+    filename_prefix = filename_prefix_combined_main
     
     File_utils.save_files(folder,filename_prefix,class_probs,RAT_data.test_labels,history)
       
