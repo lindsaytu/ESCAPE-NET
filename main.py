@@ -132,7 +132,7 @@ def save_results():
             table.append(row)
             
 df = pd.DataFrame(table, columns=columns)
-df.to_excel('M:\\NET2\\Zariffa\\Arthur\\Eugene\\NN Scripts\\Old Image Alignment\\results\\transfer_learning_results_hosts.xlsx')
+df.to_excel('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay T\\Eugene\\NN Scripts\\Old Image Alignment\\results\\transfer_learning_results_hosts.xlsx')
 
 ''' Rats fold 1-3 ''' #change based on number of folds
 for i in range(4,11):
@@ -147,13 +147,13 @@ for i in range(4,11):
 #results per rat
 
 
-rat_folder_main = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
-filename_prefix_main = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+rat_folder_main = Ratnum + '\\' + str(numfilters) + '\\'
+filename_prefix_main = Ratnum + '_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
 
-rat_folder_ConPerRing_main = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
-filename_prefix_ConPerRing_main = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_ConPerRing_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+rat_folder_ConPerRing_main = Ratnum + '\\' + str(numfilters) + '\\'
+filename_prefix_ConPerRing_main = Ratnum + '_ConPerRing_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
 
-rat_folder_combined_main = Ratnum + '\\CM_CM_C' + str(numfilters) + '\\'
-filename_prefix_combined_main = Ratnum + '_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+rat_folder_combined_main = Ratnum + '\\' + str(numfilters) + '\\'
+filename_prefix_combined_main = Ratnum + '_Combined_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
 
 save_results()
