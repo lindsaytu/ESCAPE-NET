@@ -22,10 +22,10 @@ from datetime import datetime #add date
 #file_utils
 
 
-sys.path.append('\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts') #save location (note: all paths below are in windows format, change to linux if needed)
+sys.path.append('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\') #save location (note: all paths below are in windows format, change to linux if needed)
 
 
-File_utils = File_utils_main.Utils('\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts\\Old Image Alignment\\') #save location
+File_utils = File_utils_main.Utils('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\') #save location
 
 
 #file_utils_main
@@ -91,7 +91,7 @@ print_model = True
 
 #results summary
 
-main_dir = 'M:\\NET2\\Zariffa\\Arthur\\Eugene\\NN Scripts\\Old Image Alignment\\'
+main_dir = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\'
 sys.path.append(main_dir)
 table = []
 columns = []
@@ -111,7 +111,7 @@ def save_results():
         #for ratnum in range (83, 92):
         for fold in range(1,4):
             #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
-            full_filename = main_dir + rat_folder + 'ERat' + str(host) + '_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_only_conv.mat'
+            full_filename = main_dir + rat_folder + 'ERat' + str(host) + '_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_only_conv.mat'
             
             # check that file exists:
             if not os.path.exists(full_filename):
@@ -132,7 +132,7 @@ def save_results():
             table.append(row)
             
 df = pd.DataFrame(table, columns=columns)
-df.to_excel('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay T\\Eugene\\NN Scripts\\Old Image Alignment\\results\\transfer_learning_results_hosts.xlsx')
+df.to_excel('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test.xlsx')
 
 ''' Rats fold 1-3 ''' #change based on number of folds
 for i in range(4,11):
