@@ -141,7 +141,7 @@ for i in range(4,11):
         for dense_neurons in dense_neurons_arr:
             for numfilters in numfilters_arr:
                 for filtsize in filtsizes:
-                    CNN.runCNN_full(Ratnum,foldnum,epochs,batch_size,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, data_path, num_channels)
+                    CNN.runCNN_full(Ratnum,foldnum,epochs,batch_size,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, data_path, num_channels, rat_folder_main, filename_prefix_main, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main, rat_folder_combined_main, filename_prefix_combined_main)
 
 #results per rat
 

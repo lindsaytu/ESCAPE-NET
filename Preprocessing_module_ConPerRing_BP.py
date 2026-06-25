@@ -8,7 +8,6 @@ Created on Tue Mar 13 19:24:24 2018
 import numpy as np 
 import scipy.io
 import random
-from main import File_utils
 import matplotlib.pyplot as plt
 
 

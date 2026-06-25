@@ -10,9 +10,7 @@ import Preprocessing_module_BP as PP
 import Preprocessing_module_ConPerRing_BP as PP2
 import numpy as np
 import scipy
-from main import (
-    File_utils, rat_folder_main, filename_prefix_main, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main, rat_folder_combined_main, filename_prefix_combined_main
-)
+
 
 import keras
 from keras import backend as K
@@ -52,7 +50,7 @@ def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,num
     
     return None
 
-def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils):
+def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils, rat_folder_main, filename_prefix_main):
 
     ''' Metric functions'''
     def f1(y_true, y_pred):
@@ -205,7 +203,7 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     return [Intermediate_model,RAT_data]
 
 
-def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,samples1,samples2,samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path_con_per_ring, num_channels, File_utils):
+def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,samples1,samples2,samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path_con_per_ring, num_channels, File_utils, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main):
 
     ''' Metric functions'''
     def f1(y_true, y_pred):
@@ -359,7 +357,7 @@ def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,n
     
     return [Intermediate_model,RAT_data]
 
-def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils):
+def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, rat_folder_combined_main, filename_prefix_combined_main):
     
     ''' Metric functions'''
     def f1(y_true, y_pred):
