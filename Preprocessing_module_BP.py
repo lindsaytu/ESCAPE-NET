@@ -8,14 +8,12 @@ Created on Tue Mar 13 19:24:24 2018
 import numpy as np 
 import scipy.io
 import random
-from File_utils import File_utils
 import matplotlib.pyplot as plt
-from main import data_path,num_channels
 
 class Preprocessing_module:
     
     '''Constructor'''    
-    def __init__(self,Ratnum,foldnum,is_RNN=False):
+    def __init__(self,Ratnum,foldnum, data_path, num_channels, is_RNN=False):
 
         load_filename = data_path + str(foldnum) + '_RAW.mat'
         self.numcons = num_channels

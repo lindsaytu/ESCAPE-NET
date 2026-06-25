@@ -24,7 +24,7 @@ from keras.callbacks import EarlyStopping
 
 import tensorflow as tf 
 
-def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model):
+def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, data_path, num_channels):
     
     print(Ratnum + ': Fold ' + str(foldnum) + ' starting')
     
@@ -39,7 +39,7 @@ def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,num
     #                                                          None,None,numfilters,filtsize, dropout_rate,dense_neurons,print_model)
     
     [Int_model_tp,RAT_DATA_tp] = CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,RAT_DATA_sp.samples1, \
-                                                         RAT_DATA_sp.samples2,RAT_DATA_sp.samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model)
+                                                         RAT_DATA_sp.samples2,RAT_DATA_sp.samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils)
 
     print(Ratnum + ': Fold ' + str(foldnum) + ' temporal_done')
 
@@ -52,7 +52,7 @@ def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,num
     
     return None
 
-def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model):
+def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils):
 
     ''' Metric functions'''
     def f1(y_true, y_pred):
@@ -91,7 +91,7 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     
     RAT_data = None
     
-    RAT_data = PP.Preprocessing_module(Ratnum,foldnum)
+    RAT_data = PP.Preprocessing_module(Ratnum,foldnum, data_path, num_channels)
     RAT_data.Randomize_Train_and_getValidSet(RAT_data.training_set,RAT_data.training_labels,numspikes)
     
     """
@@ -205,7 +205,7 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     return [Intermediate_model,RAT_data]
 
 
-def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,samples1,samples2,samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model):
+def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,samples1,samples2,samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path_con_per_ring, num_channels, File_utils):
 
     ''' Metric functions'''
     def f1(y_true, y_pred):
@@ -244,7 +244,7 @@ def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,n
     
     RAT_data = None
     
-    RAT_data = PP2.Preprocessing_module(Ratnum,foldnum)
+    RAT_data = PP2.Preprocessing_module(Ratnum,foldnum, data_path_con_per_ring, num_channels)
     RAT_data.Reshape_data_set(RAT_data.training_set,RAT_data.test_set)
     RAT_data.Randomize_Train_and_getValidSet2(RAT_data.training_set,RAT_data.training_labels,samples1,samples2,
                                          samples3,numspikes)
@@ -359,7 +359,7 @@ def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,n
     
     return [Intermediate_model,RAT_data]
 
-def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model):
+def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils):
     
     ''' Metric functions'''
     def f1(y_true, y_pred):

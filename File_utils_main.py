@@ -48,14 +48,13 @@ class attention(Layer):
 
 class Utils:
     '''Constructor'''    
-    def __init__(self,root_dir):
+    def __init__(self,root_dir, base_path, data_files):
         self.root_dir = root_dir
+        self.base_path = base_path
+        self.data_files = data_files
         
     def get_root_dir(self):
         return self.root_dir 
-    
-    from main import data_files
-    data_files()
         
     class LossFunction(Enum):
          CATEGORICAL_CROSSENTROPY = 1
@@ -173,7 +172,7 @@ class Utils:
     @staticmethod
     def cce_msf1(y_true, y_pred):
         cce = tensorflow.keras.losses.CategoricalCrossentropy()
-        combo_loss = cce(y_true, y_pred) + Utils.macro_soft_f1(y_true, y_pred)
+        combo_loss = cce(y_true, y_pred) + ls.macro_soft_f1(y_true, y_pred)
         return combo_loss/2
     
     @staticmethod

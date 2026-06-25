@@ -1,8 +1,6 @@
 
 import sys
 
-import File_utils_main
-
 import CNN_new_combined_wfiltsize_BP_Efficient_plus as CNN
 
 import pandas as pd
@@ -11,21 +9,13 @@ import pathlib
 from os import path
 import numpy as np
 import matplotlib.pyplot as plt
-import utils as utils
 from openpyxl.workbook import Workbook
 from collections import OrderedDict
 import scipy.io
+
 from datetime import datetime #add date
 
 #save location
-
-#file_utils
-
-
-sys.path.append('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\') #save location (note: all paths below are in windows format, change to linux if needed)
-
-
-File_utils = File_utils_main.Utils('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\') #save location
 
 
 #file_utils_main
@@ -60,6 +50,15 @@ def data_files():
                         # - As of Jan 9, corrected using new version of code
     }
     return new_dataset_mapping
+
+#file_utils
+
+
+sys.path.append('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\') #save location (note: all paths below are in windows format, change to linux if needed)
+
+import File_utils_main
+
+File_utils = File_utils_main.Utils('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\', 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\', data_files()) #save location
 
 #preprocessing module
 
@@ -103,7 +102,7 @@ columns.append("F1 score")
 columns.append("F1 score max prob")
 columns.append("F1 score macro mean")
 
-now = datetime.now
+now = datetime.now()
 date_str = now.strftime("%Y-%m-%d")
 def save_results():
     for host in range(83, 92):
@@ -111,7 +110,7 @@ def save_results():
         #for ratnum in range (83, 92):
         for fold in range(1,4):
             #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
-            full_filename = main_dir + rat_folder + 'ERat' + str(host) + '_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_only_conv.mat'
+            full_filename = main_dir + rat_folder + 'ERat' + str(host) + '_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_only_conv.mat' + date_str
             
             # check that file exists:
             if not os.path.exists(full_filename):
@@ -142,7 +141,7 @@ for i in range(4,11):
         for dense_neurons in dense_neurons_arr:
             for numfilters in numfilters_arr:
                 for filtsize in filtsizes:
-                    CNN.runCNN_full(Ratnum,foldnum,epochs,batch_size,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model)
+                    CNN.runCNN_full(Ratnum,foldnum,epochs,batch_size,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, data_path, num_channels)
 
 #results per rat
 
