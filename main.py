@@ -1,96 +1,77 @@
 
-import sys
-
-import CNN_new_combined_wfiltsize_BP_Efficient_plus as CNN
-
+import os
 import pandas as pd
-import os.path
-import pathlib
-from os import path
-import numpy as np
-import matplotlib.pyplot as plt
-from openpyxl.workbook import Workbook
-from collections import OrderedDict
 import scipy.io
-
-from datetime import datetime #add date
-
-#save location
-
-
-#file_utils_main
-
-def data_files():
-
-    new_dataset_mapping = {'ERat1': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 9 2021\\Variant F\\Kwiksil\\',
-                           'ERat2': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\August 27 2021\\',
-                           # ERat3 is just ERat2 without kwiksil
-                           'ERat3': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\August 27 2021\\no_kwiksil\\',
-                           'ERat4': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 9 2021\\Variant F\\',
-                           'ERat5': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 23 2021\\Variant F\\',
-                           # ERat6 is ERat5 without artifact
-                           'ERat6': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 23 2021\\Variant F\\no_artifact\\',
-                                    # M:\Peripheral Nerve Studies\MCC Projects\Eugene\Experiments\Raw data\September 23 2021\Variant F\no_artifact\
-                           # ERat7 is ERat 4 without artifact
-                           'ERat7': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\September 9 2021\\Variant F\\no_artifact\\',
-                           'ERat8': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\August 27 2021\\no_kwiksil\\no_artifact\\',
-                           'ERat9': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\October 7 2021\\Variant F\\no_artifact\\',
-                           
-                           'ERat10': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 9 2021\\Variant F\\no_artifact\\',
-                                    # M:\Peripheral Nerve Studies\MCC Projects\Eugene\Experiments\Raw data\October 7 2021\Variant F\no_artifact\
-                        'ERat11': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 9 2021\\Variant F\\long_hold\\no_artifact\\',
-                        'ERat12': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 9 2021\\Variant F\\longer_hold\\no_artifact\\',
-                        'ERat13': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\no_artifact\\',
-                        'ERat14': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\session2\\no_artifact\\',
-                        # ERat14: Changed number of trials to ~50/150/150 tibial/peroneal/sural
-                        'ERat15': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\ratios_0.3_1_1\\no_artifact\\',
-                        'ERat16': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\ratios_0.2_1_0.6\\no_artifact\\',
-                        'ERat17': 'M:\\Peripheral Nerve Studies\\MCC Projects\\Eugene\\Experiments\\Raw data\\December 17 2021\\Variant F\\ratios_0.2_1_0.7\\no_artifact\\',
-                        # ERat18: First iteration code of oversampling - included test samples in training set so not reliable
-                        # - As of Jan 9, corrected using new version of code
-    }
-    return new_dataset_mapping
-
-#file_utils
-
-
-sys.path.append('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\') #save location (note: all paths below are in windows format, change to linux if needed)
-
+import sys
+import numpy as np
+from sklearn.metrics import confusion_matrix
+from datetime import datetime
+from config import config
+import CNN_new_combined_wfiltsize_BP_Efficient_plus as CNN
 import File_utils_main
 
-File_utils = File_utils_main.Utils('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\', 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\', data_files()) #save location
 
-#preprocessing module
+def evaluate_model(test_labels, predicted_probs):
 
-num_channels = 64 #number of channels
+    max_probs = np.argmax(predicted_probs, 1)
+    one_hot = np.zeros((max_probs.size, 3))
+    one_hot[np.arange(max_probs.size), max_probs] = 1
 
-#change filename to the path of your training set (note: all paths below are in windows format, change to linux if needed)
-data_path = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lucie\\31 oct 2022\\right_side\\no_artifact\\new_filter\\Training_Sets'  #'D:\\Eugene\\Training_Sets\\' + Ratnum + 'Training_Fold' + str(foldnum)
+    max_probs = max_probs + 1
 
-#con per ring
+    test_labels = test_labels.reshape(test_labels.shape[0])
+    max_probs = max_probs.reshape(max_probs.shape[0])
 
-data_path_con_per_ring = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lucie\\31 oct 2022\\right_side\\no_artifact\\new_filter\\Training_Sets_ConPerRing' #path to ConPerRing training set
+    # --- Helper functions ---
+    def f1(y_true, y_pred):
+        y_true = np.eye(3)[y_true - 1]
+        tp = np.sum(np.round(np.clip(y_true * y_pred, 0, 1)))
+        possible = np.sum(np.round(np.clip(y_true, 0, 1)))
+        predicted = np.sum(np.round(np.clip(y_pred, 0, 1)))
+        recall = tp / (possible + 1e-7)
+        precision = tp / (predicted + 1e-7)
+        return 2 * (precision * recall) / (precision + recall + 1e-7)
 
-#runall
+    def f1_macro(y_true, y_pred):
+        y_true = np.eye(3)[y_true - 1]
+        tp = np.sum(np.round(np.clip(y_true * y_pred, 0, 1)), axis=0)
+        possible = np.sum(np.round(np.clip(y_true, 0, 1)), axis=0)
+        predicted = np.sum(np.round(np.clip(y_pred, 0, 1)), axis=0)
+        recall = tp / (possible + 1e-7)
+        precision = tp / (predicted + 1e-7)
+        f1_vals = 2 * (precision * recall) / (precision + recall + 1e-7)
+        return f1_vals, precision, recall
 
+    # --- Metrics ---
+    f1score = f1(test_labels, predicted_probs)
+    f1score_max = f1(test_labels, one_hot)
 
+    f1_macro_vals, precision_macro, recall_macro = f1_macro(test_labels, predicted_probs)
+    f1_macro_mean = np.mean(f1_macro_vals)
 
-valid_patience = 15 #early stopping hyperparameter
-epochs = 1000 #number of passes of training dataset through model
-batch_size = 50 #number of image samples processed together before internal weights are updated
-numspikes = 1000 
-numfilters_arr = [32]
-dense_neurons_arr = [32]#8,4]
-filtsizes = [9]
-dropout_rate = 0.5 #fraction of neurons randomly dropped during each training step
-channel_width_multiplier = 1 #scale factor for size of CNN
-# filepath = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Ryan K\\CNNs\\Training_Sets_BP\\'
-print_model = True
+    f1_macro_max_vals, precision_macro_max, recall_macro_max = f1_macro(test_labels, one_hot)
+    f1_macro_mean_max = np.mean(f1_macro_max_vals)
 
+    accuracy = 1 - np.mean(test_labels != max_probs)
 
-#results summary
+    con_mat = confusion_matrix(test_labels, max_probs)
+    con_mat_norm = confusion_matrix(test_labels, max_probs, normalize='true')
 
-main_dir = 'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\'
+    return {
+        "accuracy": accuracy,
+        "f1": f1score,
+        "f1_max": f1score_max,
+        "f1_macro_mean": f1_macro_mean,
+        "f1_macro_mean_max": f1_macro_mean_max,
+        "conf_mat": con_mat,
+        "conf_mat_norm": con_mat_norm
+    }
+
+File_utils = File_utils_main.Utils(config.root_dir,
+                                   config.base_path,
+                                   config.datasets)
+
+main_dir = config.root_dir
 sys.path.append(main_dir)
 table = []
 columns = []
@@ -110,7 +91,11 @@ def save_results():
         #for ratnum in range (83, 92):
         for fold in range(1,4):
             #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
-            full_filename = main_dir + rat_folder + 'ERat' + str(host) + '_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_only_conv.mat' + date_str
+            full_filename = (
+                f"{main_dir}{rat_folder}" 
+                f"ERat{host}_CM_CDD_Combined_fold{fold}"
+                f"_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4"
+                f"_only_conv_{date_str}.mat")
             
             # check that file exists:
             if not os.path.exists(full_filename):
@@ -120,39 +105,40 @@ def save_results():
             RAT = scipy.io.loadmat(full_filename)
             test_labels = RAT['test_labels']
             class_probs = RAT['class_probs']
-            model_eval = utils.evaluate_model(test_labels, class_probs)
+            model_eval = evaluate_model(test_labels, class_probs)
             row = [host,
                 #ratnum,
                 fold,
-                model_eval.accuracy, 
-                model_eval.f1score, 
-                model_eval.f1score_maxprobs, 
-                model_eval.f1score_macro_mean]
+                model_eval["accuracy"], 
+                model_eval["f1"], 
+                model_eval["f1_max"], 
+                model_eval["f1_macro_mean"]
+            ]
             table.append(row)
-            
-df = pd.DataFrame(table, columns=columns)
-df.to_excel('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test.xlsx')
+
 
 ''' Rats fold 1-3 ''' #change based on number of folds
 for i in range(4,11):
     for foldnum in range(1,4):
         Ratnum = 'ERat' + str(i)
         
-        for dense_neurons in dense_neurons_arr:
-            for numfilters in numfilters_arr:
-                for filtsize in filtsizes:
-                    CNN.runCNN_full(Ratnum,foldnum,epochs,batch_size,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, data_path, num_channels, rat_folder_main, filename_prefix_main, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main, rat_folder_combined_main, filename_prefix_combined_main)
+        for dense_neurons in config.dense_neurons_arr:
+            for numfilters in config.numfilters_arr:
+                for filtsize in config.filtsizes:
 
-#results per rat
+                    rat_folder_main = Ratnum + '\\' + str(numfilters) + '\\'
+                    filename_prefix_main = Ratnum + '_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(config.dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(config.channel_width_multiplier) + '_rbw'
+
+                    rat_folder_ConPerRing_main = Ratnum + '\\' + str(numfilters) + '\\'
+                    filename_prefix_ConPerRing_main = Ratnum + '_ConPerRing_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(config.dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(config.channel_width_multiplier) + '_rbw'
+
+                    rat_folder_combined_main = Ratnum + '\\' + str(numfilters) + '\\'
+                    filename_prefix_combined_main = Ratnum + '_Combined_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(config.dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(config.channel_width_multiplier) + '_rbw'
 
 
-rat_folder_main = Ratnum + '\\' + str(numfilters) + '\\'
-filename_prefix_main = Ratnum + '_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
-
-rat_folder_ConPerRing_main = Ratnum + '\\' + str(numfilters) + '\\'
-filename_prefix_ConPerRing_main = Ratnum + '_ConPerRing_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
-
-rat_folder_combined_main = Ratnum + '\\' + str(numfilters) + '\\'
-filename_prefix_combined_main = Ratnum + '_Combined_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(channel_width_multiplier) + '_rbw'
+                    CNN.runCNN_full(Ratnum,foldnum,config.epochs,config.batch_size,config.valid_patience,config.numspikes,numfilters,filtsize,config.dropout_rate,dense_neurons,config.channel_width_multiplier,config.print_model, File_utils, config.data_path, config.num_channels, rat_folder_main, filename_prefix_main, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main, rat_folder_combined_main, filename_prefix_combined_main)
 
 save_results()
+  
+df = pd.DataFrame(table, columns=columns)
+df.to_excel('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test.xlsx')
