@@ -22,11 +22,11 @@ from keras.callbacks import EarlyStopping
 
 import tensorflow as tf 
 
-def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, data_path, num_channels):
+def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize,dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, data_path, num_channels, rat_folder_main, filename_prefix_main, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main, rat_folder_combined_main, filename_prefix_combined_main):
     
     print(Ratnum + ': Fold ' + str(foldnum) + ' starting')
     
-    [Int_model_sp,RAT_DATA_sp] = CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model)
+    [Int_model_sp,RAT_DATA_sp] = CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils, rat_folder_main, filename_prefix_main)
         
     print(Ratnum + ': Fold ' + str(foldnum) + ' spatial_done')
     
@@ -37,11 +37,11 @@ def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,num
     #                                                          None,None,numfilters,filtsize, dropout_rate,dense_neurons,print_model)
     
     [Int_model_tp,RAT_DATA_tp] = CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,RAT_DATA_sp.samples1, \
-                                                         RAT_DATA_sp.samples2,RAT_DATA_sp.samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils)
+                                                         RAT_DATA_sp.samples2,RAT_DATA_sp.samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils, rat_folder_main, filename_prefix_main)
 
     print(Ratnum + ': Fold ' + str(foldnum) + ' temporal_done')
 
-    combined_models_to_dense(Int_model_sp,Int_model_tp,RAT_DATA_sp,RAT_DATA_tp,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model)
+    combined_models_to_dense(Int_model_sp,Int_model_tp,RAT_DATA_sp,RAT_DATA_tp,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils, rat_folder_main, filename_prefix_main)
     
     for i in range(15):
         K.clear_session()
