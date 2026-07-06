@@ -1,4 +1,5 @@
 
+
 import os
 import pandas as pd
 import scipy.io
@@ -126,8 +127,8 @@ def save_results():
 
 
 ''' Rats fold 1-3 ''' #change based on number of folds
-for i in range(4,11):
-    for foldnum in range(1,4):
+for i in range(4,5):
+    for foldnum in range(1,2):
         Ratnum = 'ERat' + str(i)
         
         for dense_neurons in config.dense_neurons_arr:
@@ -149,4 +150,4 @@ for i in range(4,11):
 save_results()
   
 df = pd.DataFrame(table, columns=columns)
-df.to_excel(f'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test_{date_str}.xlsx')
+df.to_excel(f'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test.xlsx')
