@@ -41,7 +41,7 @@ def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,num
 
     print(Ratnum + ': Fold ' + str(foldnum) + ' temporal_done')
 
-    combined_models_to_dense(Int_model_sp,Int_model_tp,RAT_DATA_sp,RAT_DATA_tp,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils, rat_folder_main, filename_prefix_main)
+    combined_models_to_dense(Int_model_sp,Int_model_sp,RAT_DATA_sp,RAT_DATA_tp,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, rat_folder_combined_main, filename_prefix_combined_main)
     
     for i in range(15):
         K.clear_session()
@@ -99,8 +99,7 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     labels_training = None
     labels_test = None
     labels_valid = None
-    
-    
+
     labels_training = tf.keras.utils.to_categorical(RAT_data.training_labels - 1, None) #labels_training = keras.utils.to_categorical(RAT_data.training_labels - 1, None)
     labels_test = tf.keras.utils.to_categorical(RAT_data.test_labels - 1, None) #labels_test = keras.utils.to_categorical(RAT_data.test_labels - 1, None)
     labels_valid = tf.keras.utils.to_categorical(RAT_data.valid_labels - 1, None) #labels_valid = keras.utils.to_categorical(RAT_data.valid_labels - 1, None)
@@ -529,5 +528,4 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
     K.clear_session()
     
     return None
-    
     
