@@ -6,7 +6,7 @@ Created on Tue Mar 13 19:24:24 2018
 """
 
 import numpy as np 
-import scipy.io
+import h5py
 import random
 import matplotlib.pyplot as plt
 
@@ -17,7 +17,7 @@ class Preprocessing_module:
     def __init__(self,Ratnum,foldnum, data_path_con_per_ring, num_channels, is_RNN=False):
 
         #change filename to path of your ConPerRing training set (note: all paths below are in windows format, change to linux if needed)
-        load_filename = data_path_con_per_ring + str(Ratnum) + 'Training_Fold' + str(foldnum)
+        load_filename = data_path_con_per_ring + 'Training_Fold' + str(foldnum) + '_RAW.mat'
                 
         self.numcons = num_channels #number of channels
         # Use mapping to get new dataset collected by Eugene
@@ -28,13 +28,13 @@ class Preprocessing_module:
         
         print(load_filename) #TEMP
 
-        RAT = scipy.io.loadmat(load_filename)
+        RAT = h5py.File(load_filename, 'r')
         
-        training_data = RAT['training_data_rat'];
-        test_data = RAT['test_data_rat'];
+        training_data = np.array(RAT['training_data_rat']);
+        test_data = np.array(RAT['test_data_rat']);
         
-        training_data = training_data.T;
-        test_data = test_data.T;
+        training_data = training_data;
+        test_data = test_data;
         
         if is_RNN:
             test_data = test_data.reshape(test_data.shape[0],100,self.numcons,1)
@@ -47,9 +47,9 @@ class Preprocessing_module:
         # plt.show()
         
         self.training_set = training_data
-        self.training_labels = RAT['training_data_labels']
+        self.training_labels = np.array(RAT['training_data_labels']).flatten().astype(int)
         self.test_set = test_data
-        self.test_labels = RAT['test_data_labels']
+        self.test_labels = np.array(RAT['test_data_labels']).flatten().astype(int)
         self.valid_set = []
         self.valid_labels = []
         self.samples1 = []
