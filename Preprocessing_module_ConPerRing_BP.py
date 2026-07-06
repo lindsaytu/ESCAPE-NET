@@ -26,6 +26,8 @@ class Preprocessing_module:
         # else:
             # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
         
+        print(load_filename) #TEMP
+
         RAT = scipy.io.loadmat(load_filename)
         
         training_data = RAT['training_data_rat'];
