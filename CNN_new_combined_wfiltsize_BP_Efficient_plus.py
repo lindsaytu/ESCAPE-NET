@@ -529,4 +529,3 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
     
     return None
     
-    
