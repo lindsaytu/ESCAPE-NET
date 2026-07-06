@@ -86,16 +86,24 @@ columns.append("F1 score macro mean")
 now = datetime.now()
 date_str = now.strftime("%Y-%m-%d")
 def save_results():
-    for host in range(83, 92):
-        rat_folder = f'ERat{host}_{date_str}\\'
+    for host in range(4, 11):
+        rat_folder = f'ERat{host}\\{config.numfilters_arr[0]}\\'
         #for ratnum in range (83, 92):
         for fold in range(1,4):
             #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
+            filename_prefix = (
+                f'ERat{host}_Combined_fold_{fold}'
+                f'_filtsize_{config.filtsizes[0]}'
+                f'_denselayerdropoutrate_{config.dropout_rate}'
+                f'_denseneurons_{config.dense_neurons_arr[0]}'
+                f'_conv3dbl_1x1_cwm{config.channel_width_multiplier}'
+                f'_rbw'
+            )
+            
             full_filename = (
-                f"{main_dir}{rat_folder}" 
-                f"ERat{host}_CM_CDD_Combined_fold{fold}"
-                f"_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4"
-                f"_only_conv_{date_str}.mat")
+                f'{main_dir}{rat_folder}'
+                f'{filename_prefix}_only_conv.mat'
+            )
             
             # check that file exists:
             if not os.path.exists(full_filename):
@@ -118,8 +126,8 @@ def save_results():
 
 
 ''' Rats fold 1-3 ''' #change based on number of folds
-for i in range(4,11):
-    for foldnum in range(1,4):
+for i in range(4,5):
+    for foldnum in range(1,2):
         Ratnum = 'ERat' + str(i)
         
         for dense_neurons in config.dense_neurons_arr:
@@ -141,4 +149,4 @@ for i in range(4,11):
 save_results()
   
 df = pd.DataFrame(table, columns=columns)
-df.to_excel('M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test.xlsx')
+df.to_excel(f'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test.xlsx')
