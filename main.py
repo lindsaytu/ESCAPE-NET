@@ -20,8 +20,8 @@ def evaluate_model(test_labels, predicted_probs):
 
     max_probs = max_probs + 1
 
-    test_labels = test_labels.reshape(test_labels.shape[0])
-    max_probs = max_probs.reshape(max_probs.shape[0])
+    test_labels = np.asarray(test_labels).reshape(-1)
+    max_probs = np.asarray(max_probs).reshape(-1)
 
     # --- Helper functions ---
     def f1(y_true, y_pred):
