@@ -8,8 +8,8 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 from datetime import datetime
 from config import config
-import CNN_new_combined_wfiltsize_BP_Efficient_plus as CNN
-import File_utils_main
+import CNN_code as CNN
+import File_utils
 
 
 def evaluate_model(test_labels, predicted_probs):
@@ -68,7 +68,7 @@ def evaluate_model(test_labels, predicted_probs):
         "conf_mat_norm": con_mat_norm
     }
 
-File_utils = File_utils_main.Utils(config.root_dir,
+File_utils = File_utils.Utils(config.root_dir,
                                    config.base_path,
                                    config.datasets)
 
@@ -87,10 +87,10 @@ columns.append("F1 score macro mean")
 now = datetime.now()
 date_str = now.strftime("%Y-%m-%d")
 def save_results():
-    for host in range(4, 11):
+    for host in range(4, 5):
         rat_folder = f'ERat{host}\\{config.numfilters_arr[0]}\\'
         #for ratnum in range (83, 92):
-        for fold in range(1,4):
+        for fold in range(1,2):
             #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
             filename_prefix = (
                 f'ERat{host}_Combined_fold_{fold}'
@@ -101,10 +101,7 @@ def save_results():
                 f'_rbw'
             )
             
-            full_filename = (
-                f'{main_dir}{rat_folder}'
-                f'{filename_prefix}_only_conv.mat'
-            )
+            full_filename = os.path.join(main_dir, rat_folder, filename_prefix + "_only_conv.mat")
             
             # check that file exists:
             if not os.path.exists(full_filename):
