@@ -1,4 +1,9 @@
+"""
+Created on June 18, 2026
+@author: lindsaytu
 
+This file contains code that helps run the CNN. The user inputs needed are the locations for the results spreadsheet, filename structure, and number of rats and folds to run.
+"""
 
 import os
 import pandas as pd
@@ -7,10 +12,11 @@ import sys
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from datetime import datetime
-from config import config
+from file_inputs_parameters import config
 import CNN_code as CNN
 import File_utils
 
+#Don't need to edit this function
 
 def evaluate_model(test_labels, predicted_probs):
 
@@ -58,6 +64,8 @@ def evaluate_model(test_labels, predicted_probs):
     con_mat = confusion_matrix(test_labels, max_probs)
     con_mat_norm = confusion_matrix(test_labels, max_probs, normalize='true')
 
+    #The scores the model will return, edit only if you do not want all of these
+
     return {
         "accuracy": accuracy,
         "f1": f1score,
@@ -84,26 +92,26 @@ columns.append("F1 score")
 columns.append("F1 score max prob")
 columns.append("F1 score macro mean")
 
+#Saving results
+
 now = datetime.now()
 date_str = now.strftime("%Y-%m-%d")
 def save_results():
-    for host in range(4, 5):
+    for host in range(4, 5): #Range of rats to analyze. Make sure this matches below (run the CNN)
         rat_folder = f'ERat{host}\\{config.numfilters_arr[0]}\\'
-        #for ratnum in range (83, 92):
-        for fold in range(1,2):
-            #full_filename = main_dir + rat_folder + 'ERat'+str(host)+'_DF_PF_Prick_wnoise_CM_CM_CDD_Combined_fold'+str(fold)+'_filtsize_8_denselayerdropoutrate_0_denseneurons_32_cwm1_numlayer4_tlNEWERat'+str(ratnum)+'_only_conv.mat'
+        for fold in range(1,2): #Number of folds for each rat. Make sure this matches below (run the CNN)
             filename_prefix = (
                 f'ERat{host}_Combined_fold_{fold}'
                 f'_filtsize_{config.filtsizes[0]}'
                 f'_denselayerdropoutrate_{config.dropout_rate}'
                 f'_denseneurons_{config.dense_neurons_arr[0]}'
                 f'_conv3dbl_1x1_cwm{config.channel_width_multiplier}'
-                f'_rbw'
+                f'_rbw' #To read the file. Make sure this matches the filename_prefix below or it will not be able to read the files
             )
             
             full_filename = os.path.join(main_dir, rat_folder, filename_prefix + "_only_conv.mat")
             
-            # check that file exists:
+            #Check that file exists:
             if not os.path.exists(full_filename):
                 print(f"File not found: {full_filename}")
                 continue
@@ -122,15 +130,17 @@ def save_results():
             ]
             table.append(row)
 
+#Run the CNN
 
-''' Rats fold 1-3 ''' #change based on number of folds
-for i in range(4,5):
-    for foldnum in range(1,2):
+for i in range(4,5): #Range of rats to analyze. Make sure this matches above (saving results)
+    for foldnum in range(1,2): #Number of folds for each rat. Make sure this matches above (saving results)
         Ratnum = 'ERat' + str(i)
         
         for dense_neurons in config.dense_neurons_arr:
             for numfilters in config.numfilters_arr:
                 for filtsize in config.filtsizes:
+
+                    #The filename you want the files to be saved as. Make sure this matches above filename_prefix in saving results
 
                     rat_folder_main = Ratnum + '\\' + str(numfilters) + '\\'
                     filename_prefix_main = Ratnum + '_fold_' + str(foldnum) + '_filtsize_' + str(filtsize) + '_denselayerdropoutrate_' + str(config.dropout_rate) + '_denseneurons_' + str(dense_neurons) + '_conv3dbl_1x1_cwm' + str(config.channel_width_multiplier) + '_rbw'
@@ -145,6 +155,8 @@ for i in range(4,5):
                     CNN.runCNN_full(Ratnum,foldnum,config.epochs,config.batch_size,config.valid_patience,config.numspikes,numfilters,filtsize,config.dropout_rate,dense_neurons,config.channel_width_multiplier,config.print_model, File_utils, config.data_path, config.num_channels, rat_folder_main, filename_prefix_main, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main, rat_folder_combined_main, filename_prefix_combined_main)
 
 save_results()
-  
+
+#Excel sheet for accuracy, f1 values, etc. Change to location you created your results sheet.
+
 df = pd.DataFrame(table, columns=columns)
 df.to_excel(f'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test.xlsx')
