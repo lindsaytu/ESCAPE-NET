@@ -3,6 +3,8 @@
 Created on Tue Mar 13 19:24:24 2018
 
 @author: kohr
+
+This file handles the preprocessing training .mat files. You do not need to change anything in this file.
 """
 
 import numpy as np 
@@ -16,17 +18,9 @@ class Preprocessing_module:
     '''Constructor'''    
     def __init__(self,Ratnum,foldnum, data_path_con_per_ring, num_channels, is_RNN=False):
 
-        #change filename to path of your ConPerRing training set (note: all paths below are in windows format, change to linux if needed)
         load_filename = data_path_con_per_ring + 'Training_Fold' + str(foldnum) + '_RAW.mat'
                 
-        self.numcons = num_channels #number of channels
-        # Use mapping to get new dataset collected by Eugene
-        # if foldnum > 0:
-            # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Training_Fold' + str(foldnum) + '_RAW' #change filename to your path
-        # else:
-            # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets_ConPerRing\\Dataset_RAW' #change filename to your path
-        
-        print(load_filename) #TEMP
+        self.numcons = num_channels 
 
         RAT = h5py.File(load_filename, 'r')
         

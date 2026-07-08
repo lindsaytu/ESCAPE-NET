@@ -3,6 +3,8 @@
 Created on Tue Mar 13 19:24:24 2018
 
 @author: kohr
+
+This file handles the preprocessing con per ring training .mat files. You do not need to change anything in this file.
 """
 
 import numpy as np 
@@ -17,13 +19,6 @@ class Preprocessing_module:
 
         load_filename = data_path + 'Training_Fold' + str(foldnum) + '_RAW.mat'
         self.numcons = num_channels
-        # Use mapping to get new dataset collected by Eugene
-        # if foldnum > 0:
-            # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Training_Fold' + str(foldnum) + '_RAW'
-        # else:
-            # load_filename = File_utils.new_dataset_mapping[Ratnum] + 'Training_Sets\\Dataset_RAW'
-        
-        print(load_filename) #TEMP
 
         RAT = h5py.File(load_filename, 'r')
         

@@ -17,9 +17,6 @@ from enum import Enum
 from tensorflow.keras.layers import Layer
 
 
-# from tensorflow.python.saved_model import loader_impl
-# from tensorflow.python.keras.saving.saved_model import load as saved_model_load
-
  # Add attention layer to the deep learning network
 class attention(Layer):
     def __init__(self,**kwargs):
@@ -88,7 +85,7 @@ class Utils:
             """
             true_positives = np.sum(np.round(np.clip(y_true * y_pred, 0, 1)))
             possible_positives = np.sum(np.round(np.clip(y_true, 0, 1)))
-            recall = float(true_positives) / (float(possible_positives) + 1e-07) # 1e-07 = K.epsilon, fuzz factor, as of Feb 2021
+            recall = float(true_positives) / (float(possible_positives) + 1e-07) 
             return recall
     
         def precision(y_true, y_pred):
@@ -106,8 +103,6 @@ class Utils:
         y_true = np.eye(3)[y_true-1]
         precision = precision(y_true, y_pred)
         recall = recall(y_true, y_pred)
-        # print("precision: " + str(precision) + "\n")
-        # print("recall: " + str(recall) + "\n")
         return 2*((precision*recall)/(precision+recall))
     
     @staticmethod
@@ -122,7 +117,7 @@ class Utils:
             """
             true_positives = np.sum(np.round(np.clip(y_true * y_pred, 0, 1)),axis=0)
             possible_positives = np.sum(np.round(np.clip(y_true, 0, 1)),axis=0)
-            recall = true_positives.astype(np.float) / (possible_positives.astype(np.float) + 1e-07) # 1e-07 = K.epsilon, fuzz factor, as of Feb 2021
+            recall = true_positives.astype(np.float) / (possible_positives.astype(np.float) + 1e-07) 
             return recall
     
         def precision(y_true, y_pred):
@@ -277,8 +272,6 @@ class Utils:
         
         return f1[2]
     
-   
-    
     
     dependencies = {
              'f1': f1.__func__,
@@ -292,12 +285,7 @@ class Utils:
         }
     
     
-    def hello_world(self):
-        print("hello world")
-        print(self.root_dir)
-    
-    
-    def load_model(self,folder,filename_prefix,dependencies,int_model=False):#,root_dir='\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts\\'):
+    def load_model(self,folder,filename_prefix,dependencies,int_model=False):
         directory = self.root_dir + folder    
         full_filename_prefix = directory + filename_prefix
         
@@ -317,7 +305,7 @@ class Utils:
         model = tensorflow.keras.models.load_model(full_filename, custom_objects=dependencies, compile = False)
         return model
     
-    def load_model_args(self,folder,filename_prefix,dependencies,int_model=False):#,root_dir='\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts\\'):
+    def load_model_args(self,folder,filename_prefix,dependencies,int_model=False):
         directory = self.root_dir + folder    
         full_filename_prefix = directory + filename_prefix
         
@@ -330,14 +318,11 @@ class Utils:
             
         full_filename = full_filename_prefix + model_suffix
         if not path.exists(full_filename):
-            # print(full_filename)
-            # print("debEug NOT returning a file")
             return None
         
-        # model = keras.models.load_model(full_filename, custom_objects=dependencies)
         return full_filename, dependencies
     
-    def save_model(self,folder,filename_prefix,model):#,root_dir='\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts\\'):
+    def save_model(self,folder,filename_prefix,model):
         directory = self.root_dir + folder
         try:  
             os.makedirs(directory, exist_ok=True) 
@@ -350,7 +335,6 @@ class Utils:
     
     def save_files(self,folder,filename_prefix,class_probs=[],test_labels=[],history=None,
                    Full_model=None,Intermediate_model=None,mat_filename=''):
-                   #root_dir='\\\\svm_uhn.uhn.ca\\NET\\NET2\\Zariffa\\Eugene\\NN Scripts\\'):
         directory = self.root_dir + folder
         try:  
             os.makedirs(directory, exist_ok=True) 

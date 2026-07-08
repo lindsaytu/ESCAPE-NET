@@ -4,6 +4,7 @@ Created on Fri Apr 20 10:09:27 2018
 
 @author: kohr
 
+This file contains the code for the CNN. You do not need to change anything in this file. 
 """
 
 import Preprocessing_module_BP as PP
@@ -16,7 +17,7 @@ import keras
 from keras import backend as K
 from keras.models import Sequential, Model, load_model
 from keras.layers import Input,Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
-from tensorflow.keras.optimizers import SGD #from keras.optimizers import SGD
+from tensorflow.keras.optimizers import SGD 
 from keras.utils import np_utils
 from keras.callbacks import EarlyStopping
 
@@ -32,9 +33,6 @@ def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,num
     
     Int_model_tp = None
     RAT_DATA_tp = None
-    # if print_model:
-    #     [Int_model_tp,RAT_DATA_tp] = CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,None, \
-    #                                                          None,None,numfilters,filtsize, dropout_rate,dense_neurons,print_model)
     
     [Int_model_tp,RAT_DATA_tp] = CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,RAT_DATA_sp.samples1, \
                                                          RAT_DATA_sp.samples2,RAT_DATA_sp.samples3,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, data_path, num_channels, File_utils, rat_folder_main, filename_prefix_main)
@@ -100,11 +98,11 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     labels_test = None
     labels_valid = None
 
-    labels_training = tf.keras.utils.to_categorical(RAT_data.training_labels - 1, None) #labels_training = keras.utils.to_categorical(RAT_data.training_labels - 1, None)
-    labels_test = tf.keras.utils.to_categorical(RAT_data.test_labels - 1, None) #labels_test = keras.utils.to_categorical(RAT_data.test_labels - 1, None)
-    labels_valid = tf.keras.utils.to_categorical(RAT_data.valid_labels - 1, None) #labels_valid = keras.utils.to_categorical(RAT_data.valid_labels - 1, None)
+    labels_training = tf.keras.utils.to_categorical(RAT_data.training_labels - 1, None)
+    labels_test = tf.keras.utils.to_categorical(RAT_data.test_labels - 1, None) 
+    labels_valid = tf.keras.utils.to_categorical(RAT_data.valid_labels - 1, None) 
     
-    input_img = Input(shape=(RAT_data.numcons,100,1)) #input_img = Input(shape=(56,100,1))
+    input_img = Input(shape=(RAT_data.numcons,100,1)) 
     Conv1_out = Conv2D(numfilters, (filtsize, filtsize), activation='relu', padding='same', name = "conv1")(input_img)
     MPool1 = MaxPooling2D((4, 4), padding='same', name = "mpool1")(Conv1_out)
     
@@ -121,7 +119,7 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     
     if print_model:
         print(Initial_guess1.summary())
-    # else:
+    
     Initial_guess1.fit(RAT_data.training_set, labels_training,
               epochs=25,batch_size = size_batch, shuffle=True,
               validation_data=(RAT_data.valid_set, labels_valid))
@@ -156,9 +154,6 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     conv1x1 = Conv2D(numfilters/2, (1, 1), activation='relu', 
                    name = "conv1x1")(Conv3_out)
     
-    # conv1x1 = Conv2D(numfilters/4, (1, 1), activation='relu', 
-    #                name = "conv1x1-2")(conv1x1)
-    
     out = Flatten()(conv1x1)
     dense1 = Dense(dense_neurons, activation='relu', name = "Den1")(out)
     Dropout1 = Dropout(dropout_rate)(dense1)
@@ -178,14 +173,11 @@ def CNN_CM_CM_DD(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,nu
     
     if print_model:
         print(Full_model.summary())
-        # return [Intermediate_model, RAT_data]
     
     history = Full_model.fit(RAT_data.training_set, labels_training,
                   epochs=numepochs,batch_size = size_batch, shuffle=True,
                   validation_data=(RAT_data.valid_set, labels_valid), callbacks=[early_stopping_monitor])
           
-#    model.fit(training_data, labels_training, shuffle = True,
-#              epochs=numepochs,batch_size = size_batch)
     
     score = Full_model.evaluate(RAT_data.test_set, labels_test)
     np.disp(score)
@@ -254,12 +246,12 @@ def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,n
     labels_valid = None
     
     
-    labels_training = tf.keras.utils.to_categorical(RAT_data.training_labels - 1, None) #labels_training = keras.utils.to_categorical(RAT_data.training_labels - 1, None)
-    labels_test = tf.keras.utils.to_categorical(RAT_data.test_labels - 1, None) #labels_test = keras.utils.to_categorical(RAT_data.test_labels - 1, None)
-    labels_valid = tf.keras.utils.to_categorical(RAT_data.valid_labels - 1, None) #    labels_valid = keras.utils.to_categorical(RAT_data.valid_labels - 1, None)
+    labels_training = tf.keras.utils.to_categorical(RAT_data.training_labels - 1, None) 
+    labels_test = tf.keras.utils.to_categorical(RAT_data.test_labels - 1, None) 
+    labels_valid = tf.keras.utils.to_categorical(RAT_data.valid_labels - 1, None) 
    
     
-    input_img = Input(shape=(RAT_data.numcons,100,1)) #input_img = Input(shape=(56,100,1))
+    input_img = Input(shape=(RAT_data.numcons,100,1)) 
     Conv1_out = Conv2D(numfilters, (filtsize, filtsize), activation='relu', padding='same', name = "conv1")(input_img)
     MPool1 = MaxPooling2D((4, 4), padding='same', name = "mpool1")(Conv1_out)
     
@@ -311,8 +303,6 @@ def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,n
     conv1x1 = Conv2D(numfilters/2, (1, 1), activation='relu', 
                    name = "conv1x1")(Conv3_out)
     
-    # conv1x1 = Conv2D(numfilters/4, (1, 1), activation='relu', 
-    #                name = "conv1x1-2")(conv1x1)
     
     out = Flatten()(conv1x1)
     dense1 = Dense(dense_neurons, activation='relu', name = "Den1")(out)
@@ -333,14 +323,11 @@ def CNN_CM_CM_DD_ConPerRing(Ratnum,foldnum,numepochs,size_batch,valid_patience,n
     
     if print_model:
         print(Full_model.summary())
-        # return [Intermediate_model, RAT_data]
     
     history = Full_model.fit(RAT_data.training_set, labels_training,
           epochs=numepochs,batch_size = size_batch, shuffle=True,
           validation_data=(RAT_data.valid_set, labels_valid), callbacks=[early_stopping_monitor])
           
-#    model.fit(training_data, labels_training, shuffle = True,
-#              epochs=numepochs,batch_size = size_batch)
     
     score = Full_model.evaluate(RAT_data.test_set, labels_test)
     np.disp(score)
@@ -390,8 +377,8 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
         return 2*((precision*recall)/(precision+recall))
     
     
-    input1_img = Input(shape=(RAT_data.numcons,100,1)) #input1_img = Input(shape=(56,100,1))
-    input2_img = Input(shape=(RAT_data.numcons,100,1)) #input2_img = Input(shape=(56,100,1))
+    input1_img = Input(shape=(RAT_data.numcons,100,1)) 
+    input2_img = Input(shape=(RAT_data.numcons,100,1)) 
     
     Conv11_out = Conv2D(numfilters, (filtsize, filtsize), activation='relu', padding='same', name = "conv11")(input1_img)
     Conv21_out = Conv2D(numfilters, (filtsize, filtsize), activation='relu', padding='same', name = "conv21")(input2_img)
@@ -416,11 +403,7 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
                    name = "conv1x1_1")(Conv13_out)
     conv1x1_2 = Conv2D(numfilters/2, (1, 1), activation='relu', 
                    name = "conv1x1_2")(Conv23_out)
-    
-    # conv1x1_1 = Conv2D(numfilters/4, (1, 1), activation='relu', 
-    #                name = "conv1x1-2_1")(conv1x1_1)
-    # conv1x1_2 = Conv2D(numfilters/4, (1, 1), activation='relu', 
-    #                name = "conv1x1-2_2")(conv1x1_2)
+
         
     Merged_input_bf_DENSE = keras.layers.concatenate([conv1x1_1, conv1x1_2])   
     
@@ -449,8 +432,6 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
     C1x1_1_w = Int_model1.get_layer("conv1x1").get_weights()
     C1x1_2_w = Int_model2.get_layer("conv1x1").get_weights()  
     
-    # C1x1_2_1_w = Int_model1.get_layer("conv1x1-2").get_weights()
-    # C1x1_2_2_w = Int_model2.get_layer("conv1x1-2").get_weights()  
     
     Combined_model.get_layer("conv11").set_weights(C11_w)
     Combined_model.get_layer("conv21").set_weights(C21_w)
@@ -469,24 +450,7 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
     
     Combined_model.get_layer("conv1x1_1").set_weights(C1x1_1_w)
     Combined_model.get_layer("conv1x1_2").set_weights(C1x1_2_w)  
-    
-    # Combined_model.get_layer("conv1x1-2_1").set_weights(C1x1_2_1_w)
-    # Combined_model.get_layer("conv1x1-2_2").set_weights(C1x1_2_2_w)  
-    
-#    Combined_model.get_layer("conv11").trainable = False
-#    Combined_model.get_layer("conv21").trainable = False
-#    
-#    Combined_model.get_layer("MP11").trainable = False
-#    Combined_model.get_layer("MP21").trainable = False
-#    
-#    Combined_model.get_layer("conv12").trainable = False
-#    Combined_model.get_layer("conv22").trainable = False
-#    
-#    Combined_model.get_layer("MP12").trainable = False
-#    Combined_model.get_layer("MP22").trainable = False
-#    
-#    Combined_model.get_layer("conv13").trainable = False
-#    Combined_model.get_layer("conv23").trainable = False  
+
     
     sgd = SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
     Combined_model.compile(loss='categorical_crossentropy',
@@ -501,13 +465,12 @@ def combined_models_to_dense(Int_model1,Int_model2,RAT_data,RAT_data2,Ratnum,fol
     labels_valid = None
     
     
-    labels_training = tf.keras.utils.to_categorical(RAT_data.training_labels - 1, None) #labels_training = keras.utils.to_categorical(RAT_data.training_labels - 1, None)
-    labels_test = tf.keras.utils.to_categorical(RAT_data.test_labels - 1, None) #labels_test = keras.utils.to_categorical(RAT_data.test_labels - 1, None)
-    labels_valid = tf.keras.utils.to_categorical(RAT_data.valid_labels - 1, None) #labels_valid = keras.utils.to_categorical(RAT_data.valid_labels - 1, None)
+    labels_training = tf.keras.utils.to_categorical(RAT_data.training_labels - 1, None) 
+    labels_test = tf.keras.utils.to_categorical(RAT_data.test_labels - 1, None) 
+    labels_valid = tf.keras.utils.to_categorical(RAT_data.valid_labels - 1, None) 
     
     if print_model:
         print(Combined_model.summary())
-        # return None
     
     history = Combined_model.fit([RAT_data.training_set, RAT_data2.training_set], labels_training,
               epochs=1000,batch_size = size_batch, shuffle=True,
