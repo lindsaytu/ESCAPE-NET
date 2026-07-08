@@ -4,11 +4,12 @@ Created on Fri Apr 20 10:09:27 2018
 
 @author: kohr
 
+CNN_new_combined_wfiltsize_BP_Efficient_plus
 This file contains the code for the CNN. You do not need to change anything in this file. 
 """
 
-import Preprocessing_module_BP as PP
-import Preprocessing_module_ConPerRing_BP as PP2
+import Training_Test_Sets as PP
+import Training_Test_Sets_ConPerRing as PP2
 import numpy as np
 import scipy
 

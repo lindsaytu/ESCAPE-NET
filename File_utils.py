@@ -3,6 +3,8 @@
 Created on Mon Jan 4 2021
 
 @author: hwangyic
+
+This file adds an attention layer, defines custom metrics and loss functions, saves and loads models, and saves predictions and training outputs.
 """
 
 import scipy.io
@@ -103,7 +105,7 @@ class Utils:
         y_true = np.eye(3)[y_true-1]
         precision = precision(y_true, y_pred)
         recall = recall(y_true, y_pred)
-        return 2*((precision*recall)/(precision+recall))
+        return 2*((precision*recall)/(precision+recall + 1e-07))
     
     @staticmethod
     def f1_macro(y_true, y_pred):

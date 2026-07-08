@@ -13,7 +13,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 from datetime import datetime
 from file_inputs_parameters import config
-import CNN_code as CNN
+import ESCAPENET_Efficient_Plus as CNN
 import File_utils
 
 #Don't need to edit this function
