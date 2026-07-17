@@ -1,24 +1,20 @@
 # ESCAPE-NET (WINDOWS)
 	
-Extraneural Spatiotemporal CAPs Extraction Network (ESCAPE-NET) is a method of using a convolutional neural network (CNN) to classify naturally-evoked compound action potentials (nCAPs). This is a guide for running ESCAPE-NET on a Windows machine with your datasets. *Note: All example datasets referenced in the ESCAPE-NET code are located on the NET drive. This set of instructions will only work on Windows machines.*
+Extraneural Spatiotemporal CAPs Extraction Network (ESCAPE-NET) is a method of using a convolutional neural network (CNN) to classify naturally-evoked compound action potentials (nCAPs). This is a guide for running ESCAPE-NET on a Windows machine with your datasets. *Note: All example datasets referenced in the ESCAPE-NET code are located on the NET drive. This set of instructions will only work on Windows machines.* 
 
 
 ## HOW TO RUN:
 
-### DOWNLOAD FILES:
+### DOWNLOAD & MODIFY FILES:
 
 1. Open a PowerShell terminal and install git if it is not already installed via the following command:
 ```
 winget install --id Git.Git -e --source winget
 ```
 2. Clone repo via `git clone https://github.com/lindsaytu/ESCAPE-NET.git`
-3. Modify the file paths in 
-- [File_utils_main](File_utils_main) (lines 57-83)
-- [File_utils](File_utils) (lines 9, 15)
-- [Preprocessing_module_BP](Preprocessing_module_BP) (lines 20, 27, 29)
-- [Preprocessing_module_ConPerRing_BP](Preprocessing_module_ConPerRing_BP) (lines 21, 28, 30)
-  
-  to the path of your datasets.
+3. There are two files you have to modify:
+    - main.py: In this file, add your results spreadsheet, your filename naming structure, and change the number of rats and folds you want to run.
+    - file_inputs_parameters.py: In this file, add the paths to your training sets, datasets, and change parameters for the CNN. See section "PARAMETERS" for default parameters to use.
 
 ### SETTING UP YOUR ENVIRONMENT:
 
@@ -39,16 +35,16 @@ Note: it may take a few minutes to create the conda environment. The following i
 
 After setting up the environment, enter the following into Anaconda Prompt to run the code:
    ```
-   python runallCNN_Combined_wfiltsize_BP_Efficient_plus.py
+   python ESCAPENET_Efficient_Plus.py
    ```
 
 ## PARAMETERS
 
-These are the final parameters that were used in Eugene's paper for ESCAPE-NET Mini with four convolutional layers. These are defined in [runallCNN_Combined_wfiltsize_BP_Efficient_plus.py](runallCNN_Combined_wfiltsize_BP_Efficient_plus.py):
+These are the final parameters that were used in Eugene's paper for ESCAPE-NET Mini with four convolutional layers. These are defined in [file_inputs_parameters.py](file_inputs_parameters.py):
 ```
 numfilters = 4 #convolutional layer width
 dense_neurons_arr = [8] #dense layer width
-filtsizes = [8] #filter size of first layer. note: other layers are 4x4, 2x2, 1x1 but are hardcoded into CNN_new_combined_wfiltsize_BP_Efficient_plus.py
+filtsizes = [8] #filter size of first layer. note: other layers are 4x4, 2x2, 1x1 but are hardcoded into ESCAPENET_Efficient_Plus.py
 dropout_rate = 0
 epochs = 25
 ```
@@ -57,11 +53,6 @@ epochs = 25
 
 The following are some troubleshooting steps for errors that may occur when running the code.
 
-1. MATLAB files that are newer than v7 may not work. To fix this, open a terminal in MATLAB and save with the following command:
-```
-save('filename.mat', variables, '-v7')
-```
-
-2. The ERat label in [runallCNN_Combined_wfiltsize_BP_Efficient_plus.py](runallCNN_Combined_wfiltsize_BP_Efficient_plus.py) (line 26) is based on the labels used in [File_utils_main.py](File_utils_main.py) (lines 57-81), [Preprocessing_module_BP.py](Preprocessing_module_BP.py) (line 24), and [Preprocessing_module_ConPerRing_BP.py](Preprocessing_module_ConPerRing_BP.py) (line 25). If you run into an error, it might be because you changed one label without changing the others. Double check all the files to make sure the naming convention is consistent.
+1. The ERat label in [main.py](main.py) (lines 101, 104, 137) is based on the labels used in [file_inputs_parameters.py](file_inputs_parameters.py) (lines 17-33)If you run into an error, it might be because you changed one label without changing the others. Double check all the files to make sure the naming convention is consistent.
 
 
