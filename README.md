@@ -42,6 +42,7 @@ After setting up the environment, enter the following into Anaconda Prompt to ru
 
 These are the final parameters that were used in Eugene's paper for ESCAPE-NET Mini with four convolutional layers. These are defined in [file_inputs_parameters.py](file_inputs_parameters.py):
 ```
+num_channels = 56
 numfilters = 4 #convolutional layer width
 dense_neurons_arr = [8] #dense layer width
 filtsizes = [8] #filter size of first layer. note: other layers are 4x4, 2x2, 1x1 but are hardcoded into ESCAPENET_Efficient_Plus.py
