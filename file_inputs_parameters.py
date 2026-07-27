@@ -47,3 +47,16 @@ class Config:
         self.print_model = True
 
 config = Config()
+
+import os
+
+print("root_dir:", os.path.exists(config.root_dir))
+print("base_path:", os.path.exists(config.base_path))
+print("data_path:", os.path.exists(config.data_path))
+print("data_path_con_per_ring:", os.path.exists(config.data_path_con_per_ring))
+
+for rat, path in config.datasets.items():
+    if os.path.exists(path):
+        print(f" Rat Exists: {rat}: {path}")
+    else:
+        print(f" Missing Rat: {rat}: {path}")

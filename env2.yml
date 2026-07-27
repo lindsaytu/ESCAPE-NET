@@ -19,4 +19,12 @@ dependencies:
   - scikit-image=0.19.2=py39h2e25243_0
   - scikit-learn=1.0.2=py39he931e04_0
   - pillow=9.0.1=py39ha53f419_2
+  - freetype=2.10.4
+  - jpeg=9e
+  - lcms2=2.12
+  - libpng=1.6.37
+  - libtiff=4.3.0
+  - libwebp=1.2.2
+  - openjpeg=2.4.0
+  - zlib=1.2.11
 

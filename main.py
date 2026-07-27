@@ -6,6 +6,9 @@ This file contains code that helps run the CNN. The user inputs needed are the l
 """
 
 import os
+
+print(os.path.exists(r"M:\Peripheral Nerve Studies\MCC Projects\Lindsay\results"))
+
 import pandas as pd
 import scipy.io
 import sys
@@ -99,7 +102,7 @@ date_str = now.strftime("%Y-%m-%d")
 def save_results():
     for host in range(4, 5): #Range of rats to analyze. Make sure this matches below (run the CNN)
         rat_folder = f'ERat{host}\\{config.numfilters_arr[0]}\\'
-        for fold in range(1,2): #Number of folds for each rat. Make sure this matches below (run the CNN)
+        for fold in range(1,4): #Number of folds for each rat. Make sure this matches below (run the CNN)
             filename_prefix = (
                 f'ERat{host}_Combined_fold_{fold}'
                 f'_filtsize_{config.filtsizes[0]}'
@@ -132,8 +135,9 @@ def save_results():
 
 #Run the CNN
 
+
 for i in range(4,5): #Range of rats to analyze. Make sure this matches above (saving results)
-    for foldnum in range(1,6): #Number of folds for each rat. Make sure this matches above (saving results)
+    for foldnum in range(1,4): #Number of folds for each rat. Make sure this matches above (saving results)
         Ratnum = 'ERat' + str(i)
         
         for dense_neurons in config.dense_neurons_arr:
@@ -153,6 +157,36 @@ for i in range(4,5): #Range of rats to analyze. Make sure this matches above (sa
 
 
                     CNN.runCNN_full(Ratnum,foldnum,config.epochs,config.batch_size,config.valid_patience,config.numspikes,numfilters,filtsize,config.dropout_rate,dense_neurons,config.channel_width_multiplier,config.print_model, File_utils, config.data_path, config.num_channels, rat_folder_main, filename_prefix_main, rat_folder_ConPerRing_main, filename_prefix_ConPerRing_main, rat_folder_combined_main, filename_prefix_combined_main)
+
+all_files_exist = True
+
+for i in range(4,5):
+    Ratnum = 'ERat' + str(i)
+
+    for foldnum in range(1,4):
+        for dense_neurons in config.dense_neurons_arr:
+            for numfilters in config.numfilters_arr:
+                for filtsize in config.filtsizes:
+
+                    rat_folder = Ratnum + '\\' + str(numfilters) + '\\'
+
+                    filename = (
+                        Ratnum + '_Combined_fold_' + str(foldnum)
+                        + '_filtsize_' + str(filtsize)
+                        + '_denselayerdropoutrate_' + str(config.dropout_rate)
+                        + '_denseneurons_' + str(dense_neurons)
+                        + '_conv3dbl_1x1_cwm' + str(config.channel_width_multiplier)
+                        + '_rbw_only_conv.mat'
+                    )
+
+                    full_path = os.path.join(main_dir, rat_folder, filename)
+
+                    if not os.path.exists(full_path):
+                        print("Missing File:", full_path)
+                        all_files_exist = False
+
+if all_files_exist:
+    print("All files exist")
 
 save_results()
 
