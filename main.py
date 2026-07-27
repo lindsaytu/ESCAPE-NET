@@ -133,7 +133,7 @@ def save_results():
 #Run the CNN
 
 for i in range(4,5): #Range of rats to analyze. Make sure this matches above (saving results)
-    for foldnum in range(1,2): #Number of folds for each rat. Make sure this matches above (saving results)
+    for foldnum in range(1,6): #Number of folds for each rat. Make sure this matches above (saving results)
         Ratnum = 'ERat' + str(i)
         
         for dense_neurons in config.dense_neurons_arr:

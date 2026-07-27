@@ -35,7 +35,7 @@ Note: it may take a few minutes to create the conda environment. The following i
 
 After setting up the environment, enter the following into Anaconda Prompt to run the code:
    ```
-   python ESCAPENET_Efficient_Plus.py
+   python main.py
    ```
 
 ## PARAMETERS
