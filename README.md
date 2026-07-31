@@ -46,10 +46,10 @@ ERat4: Fold 1 starting # the exact number depends on the rat and fold you are ru
 Note: You may receive warnings such as the following:
 ```
 2026-07-08 10:58:21.107766: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1938] TensorFlow was not built with CUDA kernel binaries compatible with compute capability 12.0. CUDA kernels will be jit-compiled from PTX, which could take 30 minutes or longer.
- 2026-07-08 10:58:21.108451: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
- To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
- 2026-07-08 10:58:21.114291: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1938] TensorFlow was not built with CUDA kernel binaries compatible with compute capability 12.0. CUDA kernels will be jit-compiled from PTX, which could take 30 minutes or longer.
- 2026-07-08 10:58:22.128583: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 29177 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 5090, pci bus id: 0000:01:00.0, compute capability: 12.0
+2026-07-08 10:58:21.108451: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-07-08 10:58:21.114291: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1938] TensorFlow was not built with CUDA kernel binaries compatible with compute capability 12.0. CUDA kernels will be jit-compiled from PTX, which could take 30 minutes or longer.
+2026-07-08 10:58:22.128583: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 29177 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 5090, pci bus id: 0000:01:00.0, compute capability: 12.0
 ```
 
 However, do not be alarmed as the model will still run as usual.
