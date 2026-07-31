@@ -40,12 +40,12 @@ After setting up the environment, enter the following into Anaconda Prompt to ru
 
 You should see the following message if it is successful:
 ```
-    ERat4: Fold 1 starting # the exact number depends on the rat and fold you are running, this is just an example
+ERat4: Fold 1 starting # the exact number depends on the rat and fold you are running, this is just an example
 ```
 
 Note: You may receive warnings such as the following:
 ```
-     2026-07-08 10:58:21.107766: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1938] TensorFlow was not built with CUDA kernel binaries compatible with compute capability 12.0. CUDA kernels will be jit-compiled from PTX, which could take 30 minutes or longer.
+2026-07-08 10:58:21.107766: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1938] TensorFlow was not built with CUDA kernel binaries compatible with compute capability 12.0. CUDA kernels will be jit-compiled from PTX, which could take 30 minutes or longer.
  2026-07-08 10:58:21.108451: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
  To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
  2026-07-08 10:58:21.114291: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1938] TensorFlow was not built with CUDA kernel binaries compatible with compute capability 12.0. CUDA kernels will be jit-compiled from PTX, which could take 30 minutes or longer.
