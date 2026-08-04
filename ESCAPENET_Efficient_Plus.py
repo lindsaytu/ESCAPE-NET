@@ -40,7 +40,7 @@ def runCNN_full(Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,num
 
     print(Ratnum + ': Fold ' + str(foldnum) + ' temporal_done')
 
-    combined_models_to_dense(Int_model_sp,Int_model_sp,RAT_DATA_sp,RAT_DATA_tp,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, rat_folder_combined_main, filename_prefix_combined_main)
+    combined_models_to_dense(Int_model_sp,Int_model_tp,RAT_DATA_sp,RAT_DATA_tp,Ratnum,foldnum,numepochs,size_batch,valid_patience,numspikes,numfilters,filtsize, dropout_rate,dense_neurons,channel_width_multiplier,print_model, File_utils, rat_folder_combined_main, filename_prefix_combined_main)
     
     for i in range(15):
         K.clear_session()
