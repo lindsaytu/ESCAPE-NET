@@ -19,6 +19,10 @@ from file_inputs_parameters import config
 import ESCAPENET_Efficient_Plus as CNN
 import File_utils
 
+now = datetime.now()
+date_str = now.strftime("%Y-%m-%d")
+time_str = now.strftime("%H%M%S")
+
 #Don't need to edit this function
 
 def evaluate_model(test_labels, predicted_probs):
@@ -89,7 +93,8 @@ table = []
 columns = []
 columns.insert(0, "Host")
 #columns.insert(1, "Ratnum")
-columns.insert(1, "Fold")
+columns.insert (1, "Model Type")
+columns.insert(2, "Fold")
 columns.append("Accuracy")
 columns.append("F1 score")
 columns.append("F1 score max prob")
@@ -97,14 +102,13 @@ columns.append("F1 score macro mean")
 
 #Saving results
 
-now = datetime.now()
-date_str = now.strftime("%Y-%m-%d")
-def save_results():
+
+def save_results(suffix, model_label):
     for host in range(4, 5): #Range of rats to analyze. Make sure this matches below (run the CNN)
         rat_folder = f'ERat{host}\\{config.numfilters_arr[0]}\\'
         for fold in range(1,4): #Number of folds for each rat. Make sure this matches below (run the CNN)
             filename_prefix = (
-                f'ERat{host}_Combined_fold_{fold}'
+                f'ERat{host}{suffix}_fold_{fold}'
                 f'_filtsize_{config.filtsizes[0]}'
                 f'_denselayerdropoutrate_{config.dropout_rate}'
                 f'_denseneurons_{config.dense_neurons_arr[0]}'
@@ -185,12 +189,15 @@ for i in range(4,5):
                         print("Missing File:", full_path)
                         all_files_exist = False
 
-if all_files_exist:
-    print("All files exist")
 
-save_results()
+save_results('', 'Temporal')
+save_results('_ConPerRing', 'Spatial')
+save_results('_Combined', 'Combined')
 
 #Excel sheet for accuracy, f1 values, etc. Change to location you created your results sheet.
 
+results_dir = f'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\{date_str}'
+os.makedirs(results_dir, exist_ok=True)
+
 df = pd.DataFrame(table, columns=columns)
-df.to_excel(f'M:\\Peripheral Nerve Studies\\MCC Projects\\Lindsay\\results\\results_test.xlsx')
+df.to_excel(f'{results_dir}\\results_test_{time_str}.xlsx')
