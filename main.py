@@ -128,6 +128,7 @@ def save_results(suffix, model_label):
             class_probs = RAT['class_probs']
             model_eval = evaluate_model(test_labels, class_probs)
             row = [host,
+                model_label,
                 #ratnum,
                 fold,
                 model_eval["accuracy"], 

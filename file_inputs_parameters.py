@@ -56,7 +56,5 @@ print("data_path:", os.path.exists(config.data_path))
 print("data_path_con_per_ring:", os.path.exists(config.data_path_con_per_ring))
 
 for rat, path in config.datasets.items():
-    if os.path.exists(path):
-        print(f" Rat Exists: {rat}: {path}")
-    else:
-        print(f" Missing Rat: {rat}: {path}")
+    if not os.path.exists(path):
+        print(f"Missing Rat: {rat}: {path}")
