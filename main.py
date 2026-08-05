@@ -21,7 +21,7 @@ import File_utils
 
 now = datetime.now()
 date_str = now.strftime("%Y-%m-%d")
-time_str = now.strftime("%H%M%S")
+time_str = now.strftime("%H-%M-%S")
 
 #Don't need to edit this function
 
