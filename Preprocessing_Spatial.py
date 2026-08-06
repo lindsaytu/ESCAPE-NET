@@ -11,24 +11,51 @@ import numpy as np
 import h5py
 import random
 import matplotlib.pyplot as plt
+import scipy.io
+from file_inputs_parameters import Config
+
+config = Config()
 
 
 class Preprocessing_module:
     
     '''Constructor'''    
-    def __init__(self,Ratnum,foldnum, data_path_con_per_ring, num_channels, is_RNN=False):
+    def __init__(self,Ratnum,foldnum, data_path, num_channels, is_RNN=False):
 
-        load_filename = data_path_con_per_ring + 'Training_Fold' + str(foldnum) + '_RAW.mat'
+        load_filename = data_path + 'Training_Fold' + str(foldnum) + '_RAW.mat'
                 
-        self.numcons = num_channels 
+        self.numcons = 56
+        # Use mapping to get new dataset collected by Eugene
+        if "ERat" in Ratnum:
+            self.numcons = num_channels
+            if foldnum > 0:
+                load_filename = config.datasets[Ratnum] + 'Training_Sets\\Training_Fold' + str(foldnum) + '_RAW.mat'
+            else:
+                load_filename = config.datasets[Ratnum] + 'Training_Sets\\Dataset_RAW.mat'
 
-        RAT = h5py.File(load_filename, 'r')
-        
-        training_data = np.array(RAT['training_data_rat']);
-        test_data = np.array(RAT['test_data_rat']);
-        
-        training_data = training_data;
-        test_data = test_data;
+
+        RAT = scipy.io.loadmat(load_filename)
+
+        training_data = RAT['training_data_rat']
+        test_data = RAT['test_data_rat']
+
+        print("Before transpose:")
+        print("training_data:", training_data.shape)
+        print("test_data:", test_data.shape)
+
+        training_data = training_data.T
+        test_data = test_data.T
+
+        print("After transpose:")
+        print("training_data:", training_data.shape)
+        print("test_data:", test_data.shape)
+
+        self.training_labels = RAT['training_data_labels']
+        self.test_labels = RAT['test_data_labels']
+
+        print("Training labels shape:", self.training_labels.shape)
+        print("Test labels shape:", self.test_labels.shape)
+        print("Unique training labels:", np.unique(self.training_labels))
         
         if is_RNN:
             test_data = test_data.reshape(test_data.shape[0],100,self.numcons,1)
@@ -36,6 +63,10 @@ class Preprocessing_module:
         else:
             test_data = test_data.reshape(test_data.shape[0],self.numcons,100,1)
             training_data = training_data.reshape(training_data.shape[0],self.numcons,100,1)
+
+        print("After reshape:")
+        print("training_set:", training_data.shape)
+        print("test_set:", test_data.shape)
         
         # plt.imshow(np.mean(test_data,0).reshape(64,100))
         # plt.show()

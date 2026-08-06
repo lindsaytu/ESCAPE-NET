@@ -8,8 +8,8 @@ CNN_new_combined_wfiltsize_BP_Efficient_plus
 This file contains the code for the CNN. You do not need to change anything in this file. 
 """
 
-import Training_Test_Sets as PP
-import Training_Test_Sets_ConPerRing as PP2
+import Preprocessing_Temporal as PP
+import Preprocessing_Spatial as PP2
 import numpy as np
 import scipy
 

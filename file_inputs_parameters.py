@@ -50,10 +50,18 @@ config = Config()
 
 import os
 
-print("root_dir:", os.path.exists(config.root_dir))
-print("base_path:", os.path.exists(config.base_path))
-print("data_path:", os.path.exists(config.data_path))
-print("data_path_con_per_ring:", os.path.exists(config.data_path_con_per_ring))
+if not os.path.exists(config.root_dir):
+    print(f"Path doesn't exist: root_dir")
+
+if not os.path.exists(config.base_path):
+    print(f"Path doesn't exist: base_path")
+
+if not os.path.exists(config.data_path):
+    print(f"Path doesn't exist: data_path")
+
+if not os.path.exists(config.data_path_con_per_ring):
+    print(f"Path doesn't exist: data_path_con_per_ring")
+
 
 for rat, path in config.datasets.items():
     if not os.path.exists(path):
