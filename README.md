@@ -1,6 +1,6 @@
 # ESCAPE-NET (WINDOWS)
 	
-Extraneural Spatiotemporal CAPs Extraction Network (ESCAPE-NET) is a method of using a convolutional neural network (CNN) to classify naturally-evoked compound action potentials (nCAPs). This is a guide for running ESCAPE-NET on a Windows machine with your datasets. *Note: All example datasets referenced in the ESCAPE-NET code are located on the NET drive. This set of instructions will only work on Windows machines.* 
+Extraneural Spatiotemporal CAPs Extraction Network (ESCAPE-NET) is a method of using a convolutional neural network (CNN) to classify naturally-evoked compound action potentials (nCAPs). This is a guide for running ESCAPE-NET on a Windows machine with your datasets. This pipeline is intended to be run with your own datasets. However, here is a sample dataset to get you started: https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/JRZDDR. *Note: This set of instructions will only work on Windows machines.* 
 
 
 ## HOW TO RUN:
@@ -15,6 +15,7 @@ winget install --id Git.Git -e --source winget
 3. There are two files you have to modify:
     - main.py: In this file, add your results spreadsheet, your filename naming structure, and change the number of rats and folds you want to run.
     - file_inputs_parameters.py: In this file, add the paths to your training sets, datasets, and change parameters for the CNN. See section "PARAMETERS" for default parameters to use.
+    Sample dataset: https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/JRZDDR 
 
 ### SETTING UP YOUR ENVIRONMENT:
 
