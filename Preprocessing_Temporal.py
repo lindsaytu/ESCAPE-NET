@@ -3,6 +3,7 @@
 Created on Tue Mar 13 19:24:24 2018
 
 @author: kohr
+Edits by: lindsaytu - Aug 20, 2026
 
 This file handles the preprocessing training .mat files for the temporal fold. You do not need to change anything in this file.
 """

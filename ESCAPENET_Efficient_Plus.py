@@ -3,6 +3,7 @@
 Created on Fri Apr 20 10:09:27 2018
 
 @author: kohr
+Edits by: lindsaytu - Aug 20, 2026
 
 CNN_new_combined_wfiltsize_BP_Efficient_plus
 This file contains the code for the CNN. You do not need to change anything in this file. 

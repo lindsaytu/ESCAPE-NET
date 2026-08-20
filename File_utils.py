@@ -3,6 +3,7 @@
 Created on Mon Jan 4 2021
 
 @author: hwangyic
+Edits by: lindsaytu - Aug 20, 2026
 
 This file adds an attention layer, defines custom metrics and loss functions, saves and loads models, and saves predictions and training outputs.
 """
