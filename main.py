@@ -7,7 +7,7 @@ This file contains code that helps run the CNN. The user inputs needed are the l
 
 import os
 
-print(os.path.exists(r"M:\Peripheral Nerve Studies\MCC Projects\Lindsay\results"))
+print(os.path.exists(r"M:\Peripheral Nerve Studies\MCC Projects\Lindsay\results")) #where to save results, verifying that is a valid folder
 
 import pandas as pd
 import scipy.io
@@ -131,7 +131,7 @@ def save_results(suffix, model_label):
                 model_label,
                 #ratnum,
                 fold,
-                model_eval["accuracy"], 
+                model_eval["accuracy"], #The scores the model will return, edit only if you do not want all of these
                 model_eval["f1"], 
                 model_eval["f1_max"], 
                 model_eval["f1_macro_mean"]

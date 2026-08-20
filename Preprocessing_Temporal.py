@@ -4,7 +4,7 @@ Created on Tue Mar 13 19:24:24 2018
 
 @author: kohr
 
-This file handles the preprocessing con per ring training .mat files. You do not need to change anything in this file.
+This file handles the preprocessing training .mat files for the temporal fold. You do not need to change anything in this file.
 """
 
 import numpy as np 
