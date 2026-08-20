@@ -9,7 +9,6 @@ This file handles the preprocessing training .mat files for the temporal fold. Y
 """
 
 import numpy as np 
-import h5py
 import random
 import matplotlib.pyplot as plt
 import scipy.io
