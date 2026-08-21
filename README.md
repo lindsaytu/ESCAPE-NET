@@ -1,6 +1,6 @@
 # ESCAPE-NET (WINDOWS)
 	
-Extraneural Spatiotemporal CAPs Extraction Network (ESCAPE-NET) is a method of using a convolutional neural network (CNN) to classify naturally-evoked compound action potentials (nCAPs). This is a guide for running ESCAPE-NET on a Windows machine with your datasets. This pipeline is intended to be run with your own datasets. However, here is a sample dataset to get you started: https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/JRZDDR. *Note: This set of instructions will only work on Windows machines.* 
+Extraneural Spatiotemporal CAPs Extraction Network (ESCAPE-NET) is a method of using a convolutional neural network (CNN) to classify naturally-evoked compound action potentials (nCAPs). This is a guide for running ESCAPE-NET on a Windows machine with your datasets. This pipeline is intended to be run with your own datasets. However, here is a sample dataset to get you started: https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/JRZDDR. *Note: This set of instructions will only work on Windows machines. All naming labels used are initially assuming the data is for rats, but change the label to your animal of choice.* 
 
 
 ## HOW TO RUN:
@@ -13,7 +13,7 @@ winget install --id Git.Git -e --source winget
 ```
 2. Clone repo via `git clone https://github.com/lindsaytu/ESCAPE-NET.git`
 3. There are two files you have to modify:
-    - main.py: In this file, add your results spreadsheet, your filename naming structure, and change the number of rats and folds you want to run.
+    - main.py: In this file, add your results spreadsheet, your filename naming structure, and change the number of animals and folds you want to run.
     - file_inputs_parameters.py: In this file, add the paths to your training sets, datasets, and change parameters for the CNN. See section "PARAMETERS" for default parameters to use.
     Sample dataset: https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/JRZDDR 
 
@@ -41,7 +41,7 @@ After setting up the environment, enter the following into Anaconda Prompt to ru
 
 You should see the following message if it is successful:
 ```
-ERat4: Fold 1 starting # the exact number depends on the rat and fold you are running, this is just an example
+ERat4: Fold 1 starting # the exact number depends on the animal and fold you are running, this is just an example
 ```
 
 Note: You may receive warnings such as the following:
@@ -71,6 +71,6 @@ epochs = 25
 
 The following are some troubleshooting steps for errors that may occur when running the code.
 
-1. The ERat label in [main.py](main.py) (lines 101, 104, 137) is based on the labels used in [file_inputs_parameters.py](file_inputs_parameters.py) (lines 17-33). If you run into an error, it might be because you changed one label without changing the others. Double check all the files to make sure the naming convention is consistent.
+1. The ERat label in [main.py](main.py) (lines 101, 104, 137) is based on the labels used in [file_inputs_parameters.py](file_inputs_parameters.py) (lines 17-33). If you run into an error, it might be because you changed one label without changing the others. Double check all the files to make sure the naming convention is consistent. This especially applies if you were changing to another animal name and missed a couple of labels.
 
 

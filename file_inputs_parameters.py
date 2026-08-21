@@ -3,7 +3,8 @@ Created on June 26, 2026
 @author: lindsaytu
 
 This file contains all of the input files from the data collected from the rats. Change based on your data.
-There are two training sets, "Training_Sets" and "Training_Sets_ConPerRing". Ensure you have both. This file also contains parameters to change.
+There are two training sets, "Training_Sets" and "Training_Sets_ConPerRing". Ensure you have both. This file also contains parameters to change. 
+Note: all labels here are assuming the data is for rats, but change the label to your animal of choice.
 """
 
 class Config:
@@ -49,6 +50,8 @@ class Config:
 config = Config()
 
 import os
+
+# making sure that all files exist
 
 if not os.path.exists(config.root_dir):
     print(f"Path doesn't exist: root_dir")

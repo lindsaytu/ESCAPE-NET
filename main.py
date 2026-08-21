@@ -2,7 +2,8 @@
 Created on June 18, 2026
 @author: lindsaytu
 
-This file contains code that helps run the CNN. The user inputs needed are the locations for the results spreadsheet, filename structure, and number of rats and folds to run.
+This file contains code that helps run the CNN. The user inputs needed are the locations for the results spreadsheet, filename structure, and number of rats and folds to run. 
+Note: all labels here are assuming the data is for rats, but change the label to your animal of choice.
 """
 
 import os
